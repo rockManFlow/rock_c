@@ -3,8 +3,8 @@
     <Properties>
         <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5p - traceId:[%X{web.trace.id}] %c{1.} %M -- %m%n</Property>
         <Property name="LOG_PATTERN_ERROR">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level - traceId:[%X{web.trace.id}] %c{36} %l%M -- %m%n</Property>
-        <Property name="APP_LOG_ROOT">/data/logs</Property>
-        <Property name="APP_NAME">${sys:log4.fileName}</Property>
+        <Property name="APP_LOG_ROOT">/Users/opayc/products/rock-auth/logs</Property>
+        <Property name="APP_NAME">rock-auth</Property>
     </Properties>
     <!--先定义所有的appender-->
     <Appenders>
