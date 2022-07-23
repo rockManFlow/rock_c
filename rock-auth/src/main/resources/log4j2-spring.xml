@@ -58,7 +58,7 @@
             <AppenderRef ref="RollingFileError"/>
             <AppenderRef ref="Console"/>
         </Logger>
-        <Logger name="com.opay" additivity="false" includeLocation="true">
+        <Logger name="com.rock" additivity="false" includeLocation="true">
             <AppenderRef ref="RollingFileInfo"/>
             <AppenderRef ref="RollingFileError"/>
             <AppenderRef ref="Console"/>
