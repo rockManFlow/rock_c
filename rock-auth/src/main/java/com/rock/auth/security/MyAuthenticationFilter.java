@@ -33,6 +33,14 @@ public class MyAuthenticationFilter extends OncePerRequestFilter {
     }
 
 
+    /**
+     * 这块整体属于认证的逻辑
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         //如果认证码为空，说明需要先执行用户名/密码认证
