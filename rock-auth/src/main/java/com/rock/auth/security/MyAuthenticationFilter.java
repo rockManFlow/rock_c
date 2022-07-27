@@ -13,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * 在这个里面进行一些进入校验之前的拦截操作
@@ -42,20 +41,32 @@ public class MyAuthenticationFilter extends OncePerRequestFilter {
         String code=request.getHeader("code");
 
         log.info("MyAuthenticationFilter username:{},password:{},code:{}",username,password,code);
+        Authentication a =null;
         //两种校验规则
         if (code == null) {
             log.info("MyAuthenticationFilter code null");
             //不存在code，则执行密码校验
-            Authentication a = new UsernamePasswordAuthenticationToken(username, password);
+            a = new UsernamePasswordAuthenticationToken(username, password);
             manager.authenticate(a);
         } else {
             log.info("MyAuthenticationFilter code not null");
             //如果认证码不为空，则执行认证码认证
-            Authentication a = new AuthCodeAuthenticationToken(username, code);
+            a = new AuthCodeAuthenticationToken(username, code);
             manager.authenticate(a);
         }
 
+        /**
+         * 自定义校验通过之后必须把该Authentication对象设置到SecurityContextHolder上下文中，
+         * 不然，上下文对象中还是保存的AnonymousAuthenticationToken（默认的token对象），
+         * 就会被之后的拦截FilterSecurityInterceptor给校验住，报权限不足
+         */
+        SecurityContextHolder.getContext().setAuthentication(a);
+
         log.info("MyAuthenticationFilter chain");
+
+        /**
+         * 使调用链继续往下走，没有就会直接中断掉
+         */
         chain.doFilter(request,response);
     }
 }
