@@ -1,24 +1,68 @@
 package com.rock.auth.config;
 
+import com.rock.auth.security.MyAuthenticationFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import javax.annotation.Resource;
+import java.util.Arrays;
 
 @Slf4j
 @Configuration
+/**
+ *启用全局方法安全机制
+ * 针对方法级别授权，Spring Security 提供了 @PreAuthorize 和 @PostAuthorize 这两个注解，分别用于预授权和后授权。
+ */
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Resource
+    private AuthenticationProvider authenticationPasswordProvider;
+    @Resource
+    private AuthenticationProvider authenticationCodeProvider;
+
     /**
-     * todo 这个配置中完成角色和权限的控制配置
+     * todo 这个配置中完成角色和权限的控制配置--鉴权
+     *
      * @param http
      */
     protected void configure(HttpSecurity http) throws Exception {
+
+        /**
+         * 如果想使用csrf就需要自己实现对应的接口
+         * 禁用 csrf, 由于使用的是JWT，不需要csrf
+         *
+         * CORS，即跨域资源共享,跨域是浏览器的一种同源安全策略，是浏览器单方面限制的
+         * csrf，跨域伪装请求
+         *
+         * CorsFilter
+         */
+//        http.cors().and().csrf().disable();
+//        http.cors(c -> {
+//                CorsConfigurationSource source = request -> {
+//                    CorsConfiguration config = new CorsConfiguration();
+//                    //这里将它们都设置成“*”，意味着所有请求都可以进行跨域访问。
+//                    config.setAllowedOrigins(Arrays.asList("*"));
+//                    config.setAllowedMethods(Arrays.asList("*"));
+//                    return config;
+//                };
+////                c.configurationSource(source);
+//        });
 
         /**
          * 首先，通过 HttpSecurity 类的 authorizeRequests() 方法对所有访问 HTTP 端点的 HttpServletRequest 进行限制；
@@ -26,11 +70,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          * 接着，formLogin() 语句用于指定使用表单登录作为认证方式，也就是会弹出一个登录界面；
          * 最后，httpBasic() 语句表示可以使用 HTTP 基础认证（Basic Authentication）方法来完成认证。
          */
-        http.authorizeRequests()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().and()
-                .httpBasic();
+//        http.authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().and()
+//                .httpBasic();
 
         /**
          * anonymous()	允许匿名访问
@@ -82,27 +126,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         /**
          *
          * 【1】自定义表单登陆页面
-            http.formLogin()
-                    .loginPage("/login.html")//自定义登录页面
-                    .loginProcessingUrl("/action")//登录表单提交时的处理地址
-                    .defaultSuccessUrl("/index");//登录认证成功后的跳转页面
+         http.formLogin()
+         .loginPage("/login.html")//自定义登录页面
+         .loginProcessingUrl("/action")//登录表单提交时的处理地址
+         .defaultSuccessUrl("/index");//登录认证成功后的跳转页面
 
-            【2】或者配置自定义用户名和密码
-             spring.ecurity.user:
-                             name: spring
-                             password: spring_password
+         【2】或者配置自定义用户名和密码
+         spring.ecurity.user:
+         name: spring
+         password: spring_password
          */
+
+        http.csrf().disable();
+        http.addFilterAt(new MyAuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
+
+        http.authorizeRequests()
+                .anyRequest().authenticated();
     }
 
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-    @Autowired
-    private AuthenticationProvider authenticationProvider;
     /**
      * 使用这个configure来完成：基于AuthenticationManagerBuilder工具类为开发人员提供了基于内存、JDBC、LDAP 等多种验证方案。
-     *
-     * todo 该配置方法中完成自定义登陆密码的校验等逻辑
+     * <p>
+     * todo 该配置方法中完成自定义登陆密码的校验等逻辑--认证逻辑
      */
     @Override
     protected void configure(AuthenticationManagerBuilder builder) throws Exception {
@@ -110,25 +156,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          * AuthenticationManagerBuilder 将基于这个自定义的 SpringUserDetailsService 完成 UserDetails 的创建和管理，
          * 并基于自定义的 SpringAuthenticationProvider 完成用户认证。
          */
-        builder.userDetailsService(userDetailsService).and().authenticationProvider(authenticationProvider);
+        builder.authenticationProvider(authenticationPasswordProvider).authenticationProvider(authenticationCodeProvider);
         /**
          * 这是基于内存的用户登陆信息存储
-        builder.inMemoryAuthentication()
-                .withUser("spring_user").password("password1").roles("USER")
-                .and()
-                .withUser("spring_admin").password("password2").roles("USER", "ADMIN");
+         builder.inMemoryAuthentication()
+         .withUser("spring_user").password("password1").roles("USER")
+         .and()
+         .withUser("spring_admin").password("password2").roles("USER", "ADMIN");
          */
     }
 
     /**
      * Spring Security 中的用户对象用来描述用户并完成对用户信息的管理，
      * 涉及UserDetails、GrantedAuthority、UserDetailsService 和 UserDetailsManager这四个核心对象。
-     *
+     * <p>
      * UserDetails：描述 Spring Security 中的用户。
      * GrantedAuthority：定义用户的操作权限。
      * UserDetailsService：定义了对 UserDetails 的查询操作。
      * UserDetailsManager：扩展 UserDetailsService，添加了创建用户、修改用户密码等功能。
-     *
+     * <p>
      * 定制化用户认证方案
      */
+
+
 }

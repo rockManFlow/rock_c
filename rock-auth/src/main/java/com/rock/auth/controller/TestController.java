@@ -11,6 +11,7 @@ public class TestController {
 
     @RequestMapping(value = "one")
     public String test1(){
+        log.info("TestController test1");
         return "test1";
     }
 }

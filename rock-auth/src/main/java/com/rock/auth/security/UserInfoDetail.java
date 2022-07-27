@@ -10,7 +10,7 @@ import java.util.Collection;
  * detail 可以拥有多种GrantedAuthority授权信息
  */
 public class UserInfoDetail extends User {
-    public UserInfoDetail(String username, String password, Collection<? extends GrantedAuthority> authorities){
+    public UserInfoDetail(String username, String password, Collection authorities){
         super(username, password, true, true, true, true, authorities);
     }
 }
