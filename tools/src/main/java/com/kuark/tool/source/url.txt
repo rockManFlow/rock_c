@@ -1,0 +1,5 @@
+#zk安装包地址---Linux
+https://archive.apache.org/dist/zookeeper/
+
+#上kafka官网看对应spring+springboot+kafka对应的版本+及配置参数
+https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-kafka

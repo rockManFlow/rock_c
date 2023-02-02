@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.model.mybatis.dao.interfaces.ExcelInter">
+    <!--实现对象与表的映射关系(如果实体与表字段名不太相同)-->
+    <resultMap id="body" type="com.model.mybatis.entitys.ExcelEntity">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+    </resultMap>
+    <parameterMap id="paramBody" type="com.model.mybatis.entitys.ExcelEntity">
+        <parameter property="id" javaType="java.lang.Integer"/>
+        <parameter property="name" javaType="java.lang.String"/>
+        <parameter property="age" javaType="java.lang.Integer"/>
+    </parameterMap>
+    <select id="queryById" parameterType="java.lang.Integer" resultType="com.model.mybatis.entitys.ExcelEntity">
+        select * from excel_test as e where e.id=#{id}
+    </select>
+    <!--如果查询结果是多个，而接口写的结果是一个，会返回TooManyResultsException异常-->
+    <select id="queryByName" parameterType="java.lang.String" resultMap="body">
+        SELECT * FROM excel_test as e WHERE e.name=#{name}
+    </select>
+    <!--返回多个，直接在接口中书写list集合就可以获取到多个(集合可以包含类型)-->
+    <select id="queryAll" resultType="com.model.mybatis.entitys.ExcelEntity">
+        SELECT * FROM excel_test
+    </select>
+
+    <!--insert，update，delete需要显示的调用commit方法-->
+    <!--插入一条数据-->
+    <insert id="insertExcel" parameterType="com.model.mybatis.entitys.ExcelEntity">
+        INSERT INTO excel_test(name,age) VALUES (#{name},#{age})
+    </insert>
+    <!--多个参数使用map一个模糊类型，使用其他的名不行-->
+    <update id="updateExcel" parameterType="map">
+        UPDATE excel_test SET name=#{val.name},age=#{val.age} WHERE id=#{condition.id}
+    </update>
+    <delete id="deleteExcel" parameterType="com.model.mybatis.entitys.ExcelEntity">
+        DELETE from excel_test where id=#{id}
+    </delete>
+    
+    <!--插入一个list集合==有动态sql的知识 -->
+    <insert id="insertExcelLists">
+        insert into excel_test(name,age) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.name},#{item.age})
+        </foreach>
+    </insert>
+    <!--定义可重用的sql代码段-->
+    <sql id="param">id,name,age</sql>
+    <sql id="tab">from excel_test</sql>
+    <select id="queryByAge" parameterType="java.lang.Integer" resultMap="body">
+        SELECT
+        <include refid="param"/>
+        <include refid="tab"/>
+        WHERE age=#{age}
+    </select>
+
+    <!--没有明确的 resultMap返回map集合-->
+    <select id="queryByNameAndAge" resultType="map" parameterMap="paramBody">
+        SELECT
+        <include refid="param"/>
+        <include refid="tab"/>
+        WHERE name=#{name} and age=#{age}
+    </select>
+
+    <!--一对一使用association 一对多使用collection -->
+    <resultMap id="towBody" type="com.model.mybatis.entitys.ExcelEntity">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <!--<result property="tigger" javaType="com.model.mybatis.entitys.TiggerEntity"/>-->
+        <association property="tigger" javaType="com.model.mybatis.entitys.TiggerEntity" >
+            <id property="id" column="id"/>
+            <result property="tiggerName" column="tiggerName"/>
+        </association>
+    </resultMap>
+    <select id="queryTigger" parameterType="java.lang.Integer" resultMap="towBody">
+        SELECT e.id as id,e.name as name,e.age as age,t.name as tiggerName
+        FROM excel_test e ,t_tigger t
+        WHERE e.id=t.id AND  e.id=#{id}
+    </select>
+</mapper>

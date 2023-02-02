@@ -1,0 +1,125 @@
+主要用于详细学习Java.util.concurrent这个jdk中的相关知识
+    jdk5添加的新的工具包，使并发编程变的更简单
+
+【队列】
+BlockingQueue接口：阻塞队列
+    通常用于一个线程生产对象，另外一个线程消费对象的场景。
+    一个线程往里面放对象，直到该队列满(队列是有大小的)，生产对象的线程就会发生阻塞，直到消费线程取出一个对象。
+    相似的消费线程会向队列中取对象，直到该队列为空，消费线程也会发生阻塞，直到队列中有对象
+有四种方式来操作添加，移除和检查。不同的方式对于没有立即执行的处理方式也不同，有返回异常，有阻塞，有返回特定值等
+     	    抛异常	       特定值	  阻塞	    超时
+    插入	add(o)	       offer(o)	  put(o)	offer(o, timeout, timeunit)
+    移除	remove(o)	   poll(o)	  take(o)	poll(timeout, timeunit)
+    检查	element(o)	   peek(o)
+    无法向队列中插入null，否则回报null指针异常
+
+    具体实现有一下几个类：
+        ArrayBlockingQueue      ===数组支持的有界阻塞队列，按照先进先出原则对对象进行排序
+        DelayQueue              ===是一个无界阻塞延迟队列，只有延迟期满了之后才能从中取数据
+                                DelayQueue:放入其中的元素必须实现java.util.concurrent.Delayed接口（该队列的具体用法，直到真正使用的时候才能真正的明白）
+                                        public long getDelay(TimeUnit unit) {
+                                                return 0;//返回0或者负数，认为过期，将会被take()取到
+                                            }
+                                            //TimeUnit 是个枚举 DAYS，HOURS，MINUTES，SECONDS，MILLISECONDS，MICROSECONDS，NANOSECONDS
+        LinkedBlockingQueue     ===链阻塞队列，内部已一个链式的节点来存储对象。可以定义上线，如没有将使用MAX_VALUE作为上线
+                                    内部也是以先进先出的规则来存储数据
+        PriorityBlockingQueue   ===无界的并发队列
+                                放入到其中的元素必须实现java.lang.Comparable 接口。因此该队列中元素的排序就取决于你自己的 Comparable 实现。
+        SynchronousQueue        ===特殊的队列，他的内部同时只能容纳单个元素，只有该元素被取走，其他的线程才能往其中放入数据，其他时间阻塞
+        BlockingDeque ：如果生产者线程需要在队列的两端都可以插入数据，消费者线程需要在队列的两端都可以移除数据，这个时候也可以使用 BlockingDeque
+【其他的一些类的用法】
+CyclicBarrier 类是一种同步机制，它能够对处理一些算法的线程实现同步。换句话讲，它就是一个所有线程必须等待的一个栅栏，直到所有线程都到达这里，然后所有线程才可以继续做其他事情
+【很重要的一个知识点】
+【线程池】
+ExecutorService接口，类似于一个线程池，实际实现就是一个线程池实现的。线程池中的线程都是异步执行的
+    实现类：
+        ThreadPoolExecutor
+        ScheduledThreadPoolExecutor
+    创建什么样的线程池（这是使用工厂来创建线程池，不用像实现类需要自己来设置线程池的一些参数）：
+    ExecutorService executorService1 = Executors.newSingleThreadExecutor();
+
+    //newFixedThreadPool方法可以创建指定大小线程数的线程池。该线程池中的线程，如果不显示的关闭该线程，该线程将会一直存在
+    //如果线程池个数已经被占用完，新进来的线程就会替换已经执行完的线程，来并发执行
+    ExecutorService executorService2 = Executors.newFixedThreadPool(10);
+
+    ExecutorService executorService3 = Executors.newScheduledThreadPool(10);
+
+  主要方法：
+      execute(Runnable)    ===要求一个 java.lang.Runnable 对象，然后对它进行异步执行。但不知道执行结果
+      submit(Runnable)     ===要求一个 Runnable 实现类，但它返回一个 Future 对象。这个 Future 对象可以用来检查 Runnable 是否已经执行完毕。
+      submit(Callable)     ===类似于 submit(Runnable) 方法，除了它所要求的参数类型之外。Callable 实例除了它的 call() 方法能够返回一个结果之外和一个 Runnable 很相像。
+                           Runnable.run() 不能够返回一个结果。Callable 的结果可以通过 submit(Callable) 方法返回的 Future 对象进行获取。
+      invokeAny(...)       调用这个方法并不会返回一个 Future，但它返回其中一个 Callable 对象的结果。无法保证返回的是哪个 Callable 的结果 - 只能表明其中一个已执行结束。
+                           如果其中一个任务执行结束(或者抛了一个异常)，其他 Callable 将被取消。
+      invokeAll(...)
+自己来设置线程池中的一些基本配置，不使用工厂来自动生成线程池
+ThreadPoolExecutor
+    决定线程池中线程数
+        corePoolSize：当一个任务交给线程池时，当线程池中的线程数量少于corePoolSize时，不管有没有空闲的线程，都将创建新的线程
+        maximumPoolSize：最大线程数
+ScheduledThreadPoolExecutor
+    能够将任务延后或者定时多次执行
+
+【线程锁】
+java.util.concurrent.locks
+Lock接口：比synchronized 锁更加灵活、精细
+    synchronized锁的是代码块，只能放到一个方法中进行操作，而lock实例可以放到不同的方法中进行锁定多个不同的方法及操作，范围比较灵活
+    lock也可以锁定代码块，只是较灵活。★注意这个锁的锁定及释放，因为是放到不同的代码中操作的
+    实现类：ReentrantLock, ReentrantReadWriteLock.ReadLock, ReentrantReadWriteLock.WriteLock
+    示例： Lock lock1 = new ReentrantLock();
+           lock1.lock();
+           lock1.unlock();
+         //解释：首先，一个线程会先调用lock()方法来进行lock1这个实例的锁定，其他线程再过来调用lock1的lock方法的线程将不能调到，
+                除非上一个线程调用unlock方法来进行解锁
+java.util.concurrent.locks.ReadWriteLock读写锁接口
+    实现ReentrantReadWriteLock类
+    允许多个线程同一时间对共享资源进行加读锁，并发的读取资源。但同一时间只能有有一个写锁，此时不能有其他读锁或写锁。
+【使用：】必须保证这是同一个ReentrantReadWriteLock对象，和代码块或者共享资源是一一对应的。这才可以保证不同线程调用这个锁才起作用，否则不起作用
+【】线程的原子性类AtomicBoolean，原子性整型 AtomicInteger
+
+
+
+==========================================
+多线程并发包有三个
+java.util.concurrent：构造的一些高级工具，比如线程池和并发队列等
+locks：基本的锁实现，最重要的aqs框架和lockSupport
+atomic：原子数据的构件
+
+
+concurrent：
+java.util.concurrent.Executors 提供了构造不同线程池的静态方法---静态线程池，单一工作线程池，缓存线程池等
+    Executors这个类中构造了有三个固定线程池的静态方法
+    ExecutorService executorService1 = Executors.newSingleThreadExecutor();
+
+    ExecutorService executorService2 = Executors.newFixedThreadPool(10);
+
+    ExecutorService executorService3 = Executors.newScheduledThreadPool(10);
+
+接口 Executor  ---只有一个方法execute(Runnable command)  执行已提交的Runnable任务的对象
+
+接口 ExecutorService   ---是对Executor的扩展
+    提供了一个管理关闭线程的方法和提交submit()任务，并返回Future结果
+
+接口 Callable就是带返回结果的多线程接口，和Runnable接口是一个等级，只是带返回结果
+
+接口 Future  对于已提交任务状态的一个判断 如：取消/获取任务的执行结果，判断任务执行状况 相当于一个线程执行结果接口
+
+接口 RunnableFuture 继承了Runnable和Future接口  只有一个方法run()
+    他的实现类是FutureTask ---可取消/获得当前线程的结果,就是可以操作当前线程
+    可处理多线程结果的一个类，FutureTask可获取Callable和Runnable多线程的返回结果
+
+locks:
+ReentrantLock 的使用必须是多个线程使用同一个线程锁对象，否则是没用的 ：相当于同步锁
+    可重入锁：在一个锁之内也可以再加锁
+
+
+
+
+
+
+
+
+
+
+
+

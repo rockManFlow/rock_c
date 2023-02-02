@@ -1,0 +1,8 @@
+基本数据类型的源码分析
+buffer分析---看源码，buffer底层也是一个对应数据类型的数组来把信息存到内存中
+buffer有其自己的一套处理原则
+jdk中ServiceLoader用法分析
+ArrayList源码删除及Arrays问题
+com.google.inject.Injector对于接口与实现类绑定，
+    通过接口名，就可以直接获取到对应的实现对象
+    也可以直接绑定一个实现类，通过类名也可以获取实例对象

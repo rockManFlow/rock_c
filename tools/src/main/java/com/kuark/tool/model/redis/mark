@@ -1,0 +1,117 @@
+redis
+放到redis中的数据都是放到一个RedisObject这个对象中，包括有type+encoding+ptr+vm+other
+如果想把一些数据放到redis中，需要选择合适的数据类型来存储==key+value的选取是关键
+
+启动redis：进入src目录下，执行redis-server & 直接启动
+
+【】redis的原理？？
+
+redis服务器就是提供管理内存的一个工具，通过这个工具可以管理内存中的数据组织形式和一些其他的功能
+【】
+一种设计方案是：
+key:    表名:键值:列名
+value:  列值
+
+【】
+1、这种方式来进行存储的，有个问题，通常给的数据不知道主键id是什么，那该怎么来查？？
+    一种解决方案是：
+    例如经常需要以username来获取对应的数据，就需要在建立一个对应关系
+    key=tableName:columnName:columnValue:id
+    value=idValue
+2、又有一个问题：如果coumnValue有重复的呢？？
+    想到一种解决方案是使用hashmap的数据结构来进行存储
+    key=tableName:columnName:columnValue
+    fieldKey=idValue
+    value=需要存的值
+
+主键一些方案设计：
+    1、key=tableName:idValue:columnName   value=columnValue
+    //采用string来存储
+
+    2、key=tableName:idValue   value=objectValue
+    //采用string来存储
+
+    3、key=tableName:columnName:columnValue fieldKey=idValue value=需要存的值
+    //条件重复主键原则(解决columnValue是重复的并且还是需要条件查询的)
+    //采用hashmap来存储
+    3.1、key=tableName:columnName:columnValue   value=idValue
+    //条件主键原则(columnValue不能有重复的，必须是唯一的)
+
+
+【数据的有效时间】
+redis整体都是以key+value的形式来存储的，只是底层的实现方式不一样
+redis中放到其中的键值对如果没有设置失效时间，默认是永久有效，时间到期后redis会自动删除这个键值
+所以需要进行设置redis中键值对的有效时间。时间到期后会自动删除这个键值对--该怎么设置？？
+
+1、Java代码中该怎么进行设置
+    使用expire可以给指定key设置失效时间，注意的是在使用set和del时会一起吧之前设置的超时时间一起删除。
+    所以，在每次set该key的时候，需要注意这个超时时间的设置。
+    redis对过期键采用了lazy expiration懒移除：在访问key的时候判定key是否过期，如果过期，则进行过期处理。
+    其次，每秒对volatile keys 进行抽样测试，如果有过期键，那么对所有过期key进行处理
+2、时间的设置及服务整体性能该怎么优化
+
+【数据持久化】
+redis默认会开启持久化RDB功能(每隔多长时间把内存中的数据写入磁盘文件中，为了重启数据恢复之用)，内存数据库
+目前Redis持久化的方式有两种： RDB 和 AOF
+
+启用redis持久化：
+    打开redis的配置文件，找到appendonly，默认是appendonly no，改成appendonly yes。
+当进行了持久化操作之后，每次redis服务器重启，会从指定的持久化文件中还原数据。
+当同时使用RDB和AOF时，redis会优先从AOF中加载数据，AOF中保存的数据通常比RDB更完整。可同时开启，没有冲突
+1、持久化的原理
+    RDB：一段时间内操作超过多少次就持久化
+        非常适合进行备份。RDB 在恢复大数据集时的速度比 AOF 的恢复速度要快。
+        RDB文件是一个经过压缩的二进制文件
+        可以指定保存策略在配置文件中，开启持久化，默认是这个。
+        redis.conf中设置多个自动保存条件
+        # 服务器在900秒之内被修改了1次
+        save 900 1
+    AOF：每次操作都持久化
+        以 Redis 协议的格式保存， 因此 AOF 文件的内容非常容易被人读懂
+        服务器配置中有一项appendfsync，这个配置会影响服务器多久完成一次命令的记录：
+            always：将缓存区的内容总是即时写到AOF文件中。
+            everysec：将缓存区的内容每隔一秒写入AOF文件中。
+            no ：写入AOF文件中的操作由操作系统决定，一般而言为了提高效率，操作系统会等待缓存区被填满，才会开始同步数据到磁盘。
+
+2、持久化的策略
+    建议两个持久化方式都开启
+3、redis宕机之后，怎么从持久化的文件中加载对应数据的？？
+    redis自动加载到内存中
+    可以自动将更新的数据同步到其他服务器上
+
+【数据结构】
+1、为什么需要区别这么多的数据结构，因为底层都是key-value的形式
+    不同的数据类型操作方式和底层存储方式都是不一样的。
+    比如set可以自动去重、list是以链表的形式来存储和操作。
+    虽然最终都是key-value形式，但在内存中的管理方式是不一样的策略
+2、这样的数据结构有什么好处
+    解决不同的业务对数据类型的需求
+
+
+【redis的交互管理采用什么策略来管理，使其更符合业务系统的需求】
+1、redis中存的是业务访问频率比较大的数据，不需要把数据库中的所有数据都放到redis中
+2、需要开启redis的持久化功能，防止宕机的时候数据不会丢失
+3、redis中修改的数据采用什么策略定时刷新到数据库中？？
+    【1】写个定时器，定时刷新redis中所有的数据更新到数据库中---如果数据库中还有其他的业务对数据库访问比较大，会有一个问题。还有redis中数据量比较大的话，定时更新也会消耗一定的资源
+    【2】只更新redis中更新过的数据，但怎么来判断哪些是更新过的？？
+    【3】对于读多写少，修改直接写到redis和数据库中。新增先写数据库中再更新到redis中
+    【4】
+        并发不高：读redis--没有，读MySQL--返回数据，并更新到redis中
+                  写MySQL--成功，再写redis
+        并发高：  读redis--没有，读MySQL--返回数据，并更新到redis中
+                  先写redis中，直接返回。之后定时或定期把数据更新到MySQL中
+
+
+【1】问题：如果key相同，但存取的数据类型不同，是否会替换？？
+验证：会出现redis.clients.jedis.exceptions.JedisDataException: WRONGTYPE Operation against a key holding the wrong kind of value
+原因是整个的redis中不同类型的key都是不可以重复的，--所以推出redis中最好只存数据库中的数据，不存其他的
+【2】问题：各个数据类型的应用场景？？
+【3】问题：删除、修改操作+定时刷新+持久化等怎么来进行操作
+    string:修改string类型也会使用set来修改值，修改key使用rename old_key new_key。删除使用del命令
+    hash:hkeys hash_ay_key返回集合所有key。 hvals hash_ay_key返回集合所有value  hset 添加
+【4】问题：redis服务器的一些基本配置？？
+
+
+具体代码的书写
+怎么来管理redis中的数据呢？
+任务：使用redis从数据库中获取指定的数据到内存中，客户端不间断的访问

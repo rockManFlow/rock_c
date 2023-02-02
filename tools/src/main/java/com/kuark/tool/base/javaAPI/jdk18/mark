@@ -1,0 +1,82 @@
+jdk1.8新特性简介
+1、接口中允许使用default关键字来标注带有方法体的方法，在实现类中不是必须实现的
+例如：
+    接口：
+    public interface Inter {
+        public void call();
+        //jdk1.8新特性：允许你在接口中定义使用default注释的方法，相当于抽象类中实现的普通方法
+        default void show(){
+            System.out.println("interface show");
+        }
+
+        default void read(){
+            System.out.println("interface read");
+        }
+    }
+    实现：
+    public class InterImpl implements Inter {
+        @Override
+        public void call() {
+            System.out.println("call");
+        }
+
+        public static void main(String[] args){
+            InterImpl inter = new InterImpl();
+            inter.read();
+            inter.call();
+            inter.show();
+        }
+    }
+
+2、lambda表达式
+lambda表达式本质是一个匿名方法，由参数列表，箭头符号->和函数体组成
+语法形式：(parameters) ->{ statements; }
+例如：(int x,int y)->{x+y}  //传入两个参数，返回其结果
+    () -> 5  ---直接使用不行，必须使用在隐含方法的地方。比如：接口的方法的实现
+lambda表达式和正常的方法体是一样的，传入的参数及执行的方法体
+    2.1重要的用法：实现接口的唯一抽象方法，只要满足这个条件都可以使用这种形式
+    lambda表达式当作任意只包含一个抽象方法的接口类型
+    例如：
+            //使用lambda实现Runnable接口的实例
+            Runnable runnable=()->{
+                System.out.println("111");
+                System.out.println("222");
+            };//相当于接口中的run方法的实现
+    确保你的接口一定达到这个要求，你只需要给你的接口添加 @FunctionalInterface 注解，
+    编译器如果发现你标注了这个注解的接口有多于一个抽象方法的时候会报错的。
+    2.2作用域---可以直接访问方法外的变量，这个变量隐含的是final
+    final int num=10;
+    (from)->{from+num}
+
+3、java.util.Stream及一些接口功能的实现
+    操作集合效率比较高
+
+    Stream 不是集合元素，它不是数据结构并不保存数据，
+    它是有关算法和计算的，它更像一个高级版本的 Iterator
+
+    Stream，用户只要给出需要对其包含的元素执行什么操作，
+    比如 “过滤掉长度大于 10 的字符串”、“获取每个字符串的首字母”等，Stream 会隐式地在内部进行遍历，
+    做出相应的数据转换。
+
+    一个流对象属于一次性使用品
+    Stream 就如同一个迭代器（Iterator），单向，不可往复，数据只能遍历一次，遍历过一次后即用尽了
+
+    而和迭代器又不同的是，Stream 可以并行化操作
+    Stream 的并行操作依赖于 Java7 中引入的 Fork/Join 框架
+
+    方法：
+    map*方法的功能是返回由指定元素组成的流
+    collect方法的作用是：把流中元素组装到给定集合中
+
+    类：
+    Collectors提供了流各种还原操作
+
+
+
+4、增加了Clock 时钟的API
+LocalDate 本地日期来操作日期
+
+5、支持多重注解
+因为有个Repeatable注解，支持在类，方法，参数上可以重复添加相同注解多次
+
+
