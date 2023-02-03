@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 int x;//全局变量
 
 
@@ -323,9 +324,29 @@ void file(){
  * 然后根据返回值决定采取哪种适当的动作。开发人员应该在程序初始化时，
  * 把 errno 设置为 0，这是一种良好的编程习惯。0 值表示程序中没有错误。
  *
- */
-void error(){
+ * errno、perror() 和 strerror()
+C 语言提供了 perror() 和 strerror() 函数来显示与 errno 相关的文本消息。
 
+perror() 函数显示您传给它的字符串，后跟一个冒号、一个空格和当前 errno 值的文本表示形式。
+strerror() 函数，返回一个指针，指针指向当前 e
+ */
+extern int errno ;
+void error(){
+    FILE * pf;
+    int errnum;
+    pf = fopen ("unexist.txt", "rb");
+    if (pf == NULL)
+    {
+        //stderr全局错误变量 ，全局errno错误号
+        errnum = errno;
+        fprintf(stderr, "错误号: %d\n", errno);
+        perror("通过 perror 输出错误");
+        fprintf(stderr, "打开文件错误: %s\n", strerror( errnum ));
+    }
+    else
+    {
+        fclose (pf);
+    }
 }
 
 
@@ -351,7 +372,8 @@ int main() {
     //使用指向该结构的指针访问结构的成员，您必须使用 -> 运算符 pb->author
 
 
-    file();
+//    file();
 
+    error();
     return 0;
 }
