@@ -219,13 +219,17 @@ struct Books
 typedef 仅限于为类型定义符号名称，#define 不仅可以为类型定义别名，也能为数值定义别名，比如您可以定义 1 为 ONE。
 typedef 是由编译器执行解释的，#define 语句是由预编译器进行处理的。
  */
-#define TRUE  1
+#define TRUE  1  //数值定义别名
+#define Aint int  //类型定义别名
 void typedefD(){
     typedef unsigned char ab;
     ab b='1';
     ab b2='2';
 
+    Aint a=11;
+
     printf("%d",TRUE);
+    printf("a %d",a);
 }
 
 
@@ -349,7 +353,8 @@ void error(){
     }
 }
 
-
+#define MAX 100
+#define DOUBLE(X) (X+X)
 
 int main() {
     const int a=20;
@@ -359,6 +364,9 @@ int main() {
     //在C 语言中，枚举类型是被当做 int 或者 unsigned int 类型来处理的，所以按照 C 语言规范是没有办法遍历枚举类型的。
     enum DAY day=WED;
     printf("%d\n",day);
+
+    int ret = 10 * DOUBLE(MAX);
+    printf("ret %d\n",ret);
 
 //    func();
 
@@ -374,6 +382,32 @@ int main() {
 
 //    file();
 
-    error();
+//    error();
+//    typedefD();
     return 0;
 }
+/**
+ * 类型强转
+ * 结构体类型强转，默认字节对其方式来进行对应  int对应int，非相同类型采用最近匹配
+ * 方式为：
+ * struct sockaddr *soc=(struct sockaddr *)&name;
+ */
+
+/**
+ * 编译器把.c文件编译成纯汇编语言，再将之汇编成跟CPU相关的二进制码，生成各个目标文件 (.obj文件)
+ * 连接阶段，将各个目标文件中的各段代码进行绝对地址定位，生成跟特定平台相关的可执行文件
+ *
+ *
+ * .h 与.c是如何关联的？
+ * 　　假定编译程序编译myproj.c（其中含main()）时，发现它include了mylib.h（其中声明了函数void test()），
+ * 那么此时编译器将按照事先设定的路径（Include路径列表及代码文件所在的路径）查找与之同名的实现文件（扩展名为.cpp或.c，此例中为mylib.c），
+ * 如果找到该文件，并在其中找到该函数（此例中为void test()）的实现代码，则继续编译；如果在指定目录找不到实现文件，
+ * 或者在该文件及后续的各include文件中未找到实现代码，则返回一个编译错误.其实include的过程完全可以"看成"是一个文件拼接的过程，
+ * 将声明和实现分别写在头文件及C文件中，或者将二者同时写在头文件中，理论上没有本质的区别。-----动态方式
+ *
+ *
+ * 静态方式---我们使用的编译器默认的库文件都是使用的这种方式
+ * 我们所要做的，就是写出包含函数，类等等声明的头文件（a.h,b.h,...），以及他们对应的实现文件（a.cpp,b.cpp,...），
+ * 编译程序会将其编译为静态的库文件（a.lib,b.lib,...）。在随后的代码重用过程中，我们只需要提供相应的头文件（.h）和相应的库文件（.lib），就可以使用过去的代码了。
+　　相对动态方式而言，静态方式的好处是实现代码的隐蔽性，即C++中提倡的"接口对外，实现代码不可见"。有利于库文件的转发.
+ */
