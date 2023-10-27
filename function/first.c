@@ -16,6 +16,21 @@ int write(int a,char *c){
     str=c;
 }
 
+void printTypeSize(){
+    printf("TypeSize:%d\n",sizeof(char));//在内存中占用1个字节
+    printf("TypeSize:%d\n", sizeof(short int));//在内存中占用2个字节
+    printf("TypeSize:%d\n", sizeof(int));//在内存中占用4个字节
+    printf("TypeSize:%d\n", sizeof(long));//在内存中占用4个字节
+    printf("TypeSize:%d\n", sizeof(long long));//在内存中占用8个字节
+    printf("TypeSize:%d\n", sizeof(float));//在内存中占用4个字节
+    printf("TypeSize:%d\n", sizeof(double));//在内存中占用8个字节
+    struct base_info base;
+    base.addr="beijing";
+    base.age=20;
+    base.phone="+234123498043";
+    printf("TypeSize:%d\n", sizeof(base));//返回一个对象或者类型所占的内存字节数
+}
+
 int main(){
     printf("start run");
     show();
@@ -50,7 +65,7 @@ int main(){
 //        aa=aa+1;
 //    } while (aa<120);
 
-
+    printTypeSize();
 
     printf("start end");
 }

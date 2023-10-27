@@ -14,6 +14,14 @@
 void show();
 int write(int a,char *c);
 
+void printTypeSize();
+
 //声明全局变量
 int process=10;
 char *str;
+
+struct base_info{
+    char *addr;
+    unsigned int age;
+    char *phone;
+};
