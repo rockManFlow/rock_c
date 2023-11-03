@@ -2,6 +2,8 @@
 // Created by opayc on 2023/10/31.
 //
 #include <stdio.h>
+#include "../header/call.h"
+#include ""
 
 int length=0;
 int moveAfterOne(int *a,int startIndex,int endIndex);
@@ -58,11 +60,17 @@ int moveAfterOne(int *a,int startIndex,int endIndex){
 
 
 int main(){
-    int a[]={8,10,2,11,5,3,2};
-    length=(sizeof(a) / sizeof(int));
-    printf("%d\n",length);
-    insertSort(&a);
-    for(int i=0;i<length;i++){
-        printf("index:%d,value:%d\n",i,a[i]);
-    }
+//    int a[]={8,10,2,11,5,3,2};
+//    length=(sizeof(a) / sizeof(int));
+//    printf("%d\n",length);
+//    insertSort(&a);
+//    for(int i=0;i<length;i++){
+//        printf("index:%d,value:%d\n",i,a[i]);
+//    }
+
+    char arr[]="1234567";
+    show(&arr);
+    printf("main arr %s\n",arr);
+    unsigned int size=write(arr,10);
+    printf("size %d\n",size);
 }

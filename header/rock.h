@@ -5,7 +5,6 @@
 #ifndef ROCK_C_ROCK_H
 #define ROCK_C_ROCK_H
 
-#endif //ROCK_C_ROCK_H
 //定义全局常量
 #define GLOBAL_CONSTANT_NUM_1 100
 #define GLOBAL_CONSTANT_STR_1 "xiaohong"
@@ -25,3 +24,4 @@ struct base_info{
     unsigned int age;
     char *phone;
 };
+#endif //ROCK_C_ROCK_H

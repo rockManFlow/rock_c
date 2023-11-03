@@ -4,6 +4,7 @@
 #include "../header/rock.h"
 #include <stdio.h>
 
+
 void show(){
     printf("show str:%s\n",GLOBAL_CONSTANT_STR_1);
     printf("show num:%d\n",GLOBAL_CONSTANT_NUM_1);
@@ -67,5 +68,6 @@ int main(){
 
     printTypeSize();
 
+    static int ab=10;
     printf("start end");
 }

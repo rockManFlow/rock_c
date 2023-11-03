@@ -5,13 +5,11 @@
 #ifndef ROCK_C_SORT_H
 #define ROCK_C_SORT_H
 
-#endif //ROCK_C_SORT_H
-
 
 #pragma once
 #define  _CRT_SECURE_NO_WARNINGS
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include<assert.h>
 #include<time.h>
 #include<string.h>
@@ -76,3 +74,5 @@ int StackSize(Sta* pst);  //堆栈数据个数
 int StackEmpty(Sta* pst);  //判断堆栈是否为空
 
 StackData StackTop(Sta* pst);  //取出堆栈头的数据
+
+#endif //ROCK_C_SORT_H
