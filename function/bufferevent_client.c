@@ -1,16 +1,13 @@
 //bufferevent建立客户端的过程
-#include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <errno.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "../include/libevent/event.h"
 #include "../include/libevent/event2/bufferevent.h"
-#include "../include/libevent/event2/util.h"
 
 int tcp_connect_server(const char* server_ip, int port);
 void cmd_msg_cb(int fd, short events, void* arg);
@@ -19,12 +16,12 @@ void event_cb(struct bufferevent *bev, short event, void *arg);
 
 int main(int argc, char** argv)
 {
-    if( argc < 3 )
-    {
-        //两个参数依次是服务器端的IP地址、端口号
-        printf("please input 2 parameter\n");
-        return -1;
-    }
+//    if( argc < 3 )
+//    {
+//        //两个参数依次是服务器端的IP地址、端口号
+//        printf("please input 2 parameter\n");
+//        return -1;
+//    }
     //创建根节点
     struct event_base *base = event_base_new();
     //创建并且初始化buffer缓冲区
@@ -41,9 +38,9 @@ int main(int argc, char** argv)
     struct sockaddr_in server_addr;
     memset(&server_addr, 0, sizeof(server_addr) );
     server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(atoi(argv[2]));
+    server_addr.sin_port = htons(atoi("8888"));
     //将ip地址转换为网络字节序
-    inet_aton(argv[1], &server_addr.sin_addr);
+    inet_aton("127.0.0.1", &server_addr.sin_addr);
 
     //连接到 服务器ip地址和端口 初始化了 socket文件描述符 socket+connect
     bufferevent_socket_connect(bev, (struct sockaddr *)&server_addr,
@@ -84,7 +81,7 @@ void server_msg_cb(struct bufferevent* bev, void* arg)
     size_t len = bufferevent_read(bev, msg, sizeof(msg));
     msg[len] = '\0';
 
-    printf("recv %s from server\n", msg);
+    printf("recv:%s\n", msg);
 }
 
 void event_cb(struct bufferevent *bev, short event, void *arg)

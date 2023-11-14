@@ -89,7 +89,7 @@ extern "C" {
 #endif
 
 /* For int types. */
-#include <event2/util.h>
+#include "util.h"
 
 /** @name Bufferevent event codes
 

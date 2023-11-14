@@ -376,7 +376,7 @@ void file_read_c(FILE *fp){
 ````
 
 ### 24、libevent打包成静态库进行依赖开发步骤
-1. 根据源码生成静态库
+1. 根据源码生成静态库  
 执行成功后会在当前目录生成响应的Makefile  
 cmake -DEVENT__DISABLE_OPENSSL=ON -DEVENT__LIBRARY_TYPE=STATIC CMakeLists.txt  
 
@@ -391,10 +391,13 @@ CMAKE_CXX_COMPILER：g++地址。
 -S：源目录。  
 -B：构建目录。  
 
-2. make编译
+2. make编译  
 命令执行成功会生成对应静态库。  
 之后执行，静态库在lib文件夹下  
-3. 使用
+3. 使用  
 在项目中把include中的.h文件引入到项目中  
-在项目中新建lib包，把make之后lib中的静态库复制到项目的lib中  
+在项目中新建lib包，把make之后lib中的静态库复制到项目的lib中
+4. tip  
+项目中引入的静态代码库，如果想执行，必须采用这种方式进行打包生成可运行程序。  
+示例：gcc event-server.c ../lib/libevent/*.a -o event-server  
  
