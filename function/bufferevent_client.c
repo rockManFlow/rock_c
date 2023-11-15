@@ -28,7 +28,7 @@ int main(int argc, char** argv)
     struct bufferevent* bev = bufferevent_socket_new(base, -1,
                                                      BEV_OPT_CLOSE_ON_FREE);
 
-    //监听终端输入事件 设置标准输入的监控,设置回调是 cmd_msg_cb
+    //监听终端输入事件 设置标准输入的监控,设置回调是 cmd_msg_cb--todo 发送？
     struct event* ev_cmd = event_new(base, STDIN_FILENO,
                                      EV_READ | EV_PERSIST,
                                      cmd_msg_cb, (void*)bev);
@@ -45,7 +45,7 @@ int main(int argc, char** argv)
     //连接到 服务器ip地址和端口 初始化了 socket文件描述符 socket+connect
     bufferevent_socket_connect(bev, (struct sockaddr *)&server_addr,
                                sizeof(server_addr));
-    //设置buffer的回调函数 主要设置了读回调 server_msg_cb ,传入参数是标准输入的读事件
+    //设置buffer的回调函数 主要设置了读回调 server_msg_cb ,传入参数是标准输入的读事件--todo 接收？
     bufferevent_setcb(bev, server_msg_cb, NULL, event_cb, (void*)ev_cmd);
     bufferevent_enable(bev, EV_READ | EV_PERSIST);
 

@@ -1,0 +1,9 @@
+【】应用1
+用于执行libevent相关项目
+打包静态依赖库命令
+    gcc event-server.c util.c ../lib/libevent/*.a -o event-server
+    gcc event-client.c util.c ../lib/libevent/*.a -o event-client
+验证结果
+    验证是可用的
+
+

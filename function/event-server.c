@@ -6,6 +6,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include "../include/libevent/event2/event.h"
+#include "../header/util.h"
 
 #define MAX 1000
 
@@ -75,15 +76,16 @@ int findEv(int fd)
  */
 void readcb(evutil_socket_t connfd, short events, void *args)
 {
+    printf("server readcb entry\n");
     char buf[1024];
     memset(buf, 0x00, sizeof(buf));
 
     int num = findEv(connfd);
     //网络读数据，返回读取的字节数，无返回-1
-    int n = read(connfd, buf, sizeof(buf));
+    int n = full_read(connfd, buf, sizeof(buf));
     if(n<0)
     {
-        perror("read error");
+        perror("read error\n");
         //关闭fd
         close(connfd);
         //删除事件
@@ -102,21 +104,22 @@ void readcb(evutil_socket_t connfd, short events, void *args)
     }
     else
     {
-        printf("received from client info:%s",buf);
+        printf("received from client info:%s\n",buf);
         for(int i=0;i<n;i++)
         {
             //toupper 把小写字母转换为大写字母
             buf[i] = toupper(buf[i]);
         }
-        printf("send response:%s",buf);
+        printf("send response:%s\n",buf);
         //写响应把缓存中的数据往fd写
-        write(connfd, buf, strlen(buf));
+        full_write(connfd, buf, strlen(buf));
     }
 }
 
 //设置有监听事件发生时的回调函数---固定入参格式，监听的fd，事件，base事件
 void conncb(evutil_socket_t sockfd, short events, void *args)
 {
+    printf("server conncb entry\n");
     struct event_base *base = (struct event_base *)args;
 
     //有新的连接请求，调用accept接受客户端连接，放到cliaddr结构体中
@@ -126,7 +129,7 @@ void conncb(evutil_socket_t sockfd, short events, void *args)
     int connfd = accept(sockfd, (struct sockaddr*)&cliaddr,&addrlen);
     if(connfd<0)
     {
-        perror("accept error");
+        perror("accept error\n");
         exit(1);
 
     }
@@ -143,9 +146,15 @@ void conncb(evutil_socket_t sockfd, short events, void *args)
     setEventFd(connfd,readev);
 }
 
+/**
+ * 两个监听事件-统一的根事件节点下
+ * 1、监听新连接事件
+ * 2、数据读取事件监听
+ * @return
+ */
 int main()
 {
-
+    printf("event server entry\n");
     //初始化事件和文件描述符映射表
     init_ev_fd();
 
@@ -158,8 +167,8 @@ int main()
 
     //绑定
     struct sockaddr_in serv;
-    bzero(&serv, sizeof(serv));
-    serv.sin_addr.s_addr = htonl(INADDR_ANY);//IP 把无符号长整形 host转网络
+    bzero(&serv, sizeof(serv));//对内存清零（保险起见）
+    serv.sin_addr.s_addr = htonl(INADDR_ANY);//IP 把无符号长整形 host转网络 myaddr.sin_addr.s_addr  = inet_addr("192.168.3.169"); //选择IP地址
     serv.sin_port = htons(8888);//port 把无符号短整形 host转网络
     serv.sin_family = AF_INET;//协议族 IPv4
     //2、把socket文件句柄绑定到网络信息
