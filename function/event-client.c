@@ -23,11 +23,7 @@ void socket_read_cb(int fd, short events, void *null){
     }
 }
 /**
- * 当事件被激活时, 事件循环会调用回调函数,回调函数会传入3个参数.
-	第一个为fd.
-	第二个参数为触发事件的位域  EV_READ, EV_WRITE, or EV_SIGNAL.  EV_TIMEOUT 标识指示超时事件
-    EV_ET指示边沿事件触发.
-	第三个参数自定义的回调函数参数指针
+ *
  */
 void cmd_msg_cb(int in_fd, short events, void* c_fd)
 {

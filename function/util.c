@@ -6,6 +6,9 @@
 #include <errno.h>
 #include "../header/util.h"
 
+#define MAX_SIZE 1024
+ssize_t readn(int fd, void *vptr, size_t n);
+
 int full_write(int fd,void *buffer,int length){
     printf("full_write entry\n");
     int bytes_left;
@@ -41,8 +44,44 @@ int full_write(int fd,void *buffer,int length){
 int full_read(int fd,void *buffer,int length){
     printf("full_read entry\n");
     return read(fd, buffer, length);
+
+//    return readn(fd,buffer,length);
+
 //    int str_len;
 //    while ((str_len = read(fd, buffer, length)) != 0){
 //        /* 一次读取的消息 */
 //    }
+}
+
+/**
+ * todo 还是有问题？？
+ * @param fd
+ * @param vptr
+ * @param n
+ * @return
+ */
+ssize_t readn(int fd, void *vptr, size_t n)
+{
+    size_t nleft;
+    ssize_t nread;
+    char *ptr;
+
+    ptr = vptr;
+    nleft = n;
+    while (nleft > 0) {
+        if ( (nread = read(fd, ptr, nleft)) < 0) {
+            if (errno == EINTR){
+                nread = 0;        /* and call read() again */
+            }
+            else{
+                return(-1);
+            }
+        } else if (nread == 0){
+            break;                /* EOF */
+        }
+
+        nleft -= nread;
+        ptr   += nread;
+    }
+    return(n - nleft);        /* return >= 0 */
 }
