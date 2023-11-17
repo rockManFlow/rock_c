@@ -1,7 +1,7 @@
 //
 // Created by opayc on 2023/10/31.
 //
-#include "../header/Sort.h"
+#include "../../header/Sort.h"
 void Swap(int* a, int* b)
 {
     int tmp = *a;

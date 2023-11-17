@@ -3,15 +3,18 @@
 打包静态依赖库命令
     gcc event-server.c util.c ../lib/libevent/*.a -o event-server
     gcc event-client.c util.c ../lib/libevent/*.a -o event-client
+    gcc bufferevent_client.c ../lib/libevent/*.a -o bufferevent_client
 验证结果
     验证是可用的
 
-libevent的bufferevent在event的基础上自己维护了一个buffer，这样的话，就不需要再自己管理一个buffer了，
 
-event、event_base：libevent的核心。为各种平台特定的、基于事件的非阻塞IO后端提供抽象API，让程序可以知道套接字何时已经准备好读或写，并且处理基本的超时功能，检测OS信号。
+【】实现完成之后，通过java来调用实现的服务端和客户端逻辑代码
+【】ffmpeg项目学习
 
-event与bufferevent的区别（或者说使用bufferevent的好处）？
-event：进行读写是直接操作fd的（可能是文件的fd，也可能是socket的fd），这时fd准备好了，但数据不一定都准备好，使用bufferevent可以在数据准备好时，才回调你处理函数，这时就不用等待读取数据了，更好。
-bufferevent：为libevent基于事件的核心提供更方便的封装。可以使你的程序请求缓存的读和写，让你知道何时真正的发生IO，而不是在sockets准备好时通知你。（bufferevent接口拥有多个后端，这样可以有效的利用系统提供的更高速的非阻塞IO方式，比如windows的IOCPAPI。）
+---------------------------------------------------------------------------
+
+
+
+
 
 

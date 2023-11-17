@@ -5,10 +5,17 @@
 #include <stdio.h>
 #include <errno.h>
 #include "../header/util.h"
+#include <string.h>
 
-#define MAX_SIZE 1024
 ssize_t readn(int fd, void *vptr, size_t n);
 
+/**
+ * 写指定长度的数据，直到全部写完成
+ * @param fd
+ * @param buffer
+ * @param length 指定长度数据
+ * @return
+ */
 int full_write(int fd,void *buffer,int length){
     printf("full_write entry\n");
     int bytes_left;
@@ -35,7 +42,7 @@ int full_write(int fd,void *buffer,int length){
 }
 
 /**
- * todo 需要实现当一次读取不全数据的情况
+ * 是否需要在底层做读的拆包和粘包
  * @param fd
  * @param buffer
  * @param length
@@ -44,24 +51,28 @@ int full_write(int fd,void *buffer,int length){
 int full_read(int fd,void *buffer,int length){
     printf("full_read entry\n");
     return read(fd, buffer, length);
-
-//    return readn(fd,buffer,length);
-
-//    int str_len;
-//    while ((str_len = read(fd, buffer, length)) != 0){
-//        /* 一次读取的消息 */
-//    }
 }
 
 /**
- * todo 还是有问题？？
+ * 读取指定长度的报文，没全部读到，不会返回
  * @param fd
- * @param vptr
- * @param n
+ * @param buffer
+ * @param length
  * @return
  */
-ssize_t readn(int fd, void *vptr, size_t n)
-{
+int full_read_size(int fd,void *buffer,int length){
+    return readn(fd,buffer,length);
+}
+
+/**
+ * 读取指定长度的报文，没全部读到，不会返回
+ * 整体逻辑代码没问题
+ * @param fd
+ * @param vptr
+ * @param n 必须读取到这个长度之后才能返回
+ * @return
+ */
+ssize_t readn(int fd, void *vptr, size_t n){
     size_t nleft;
     ssize_t nread;
     char *ptr;
@@ -79,9 +90,21 @@ ssize_t readn(int fd, void *vptr, size_t n)
         } else if (nread == 0){
             break;                /* EOF */
         }
-
         nleft -= nread;
         ptr   += nread;
     }
     return(n - nleft);        /* return >= 0 */
 }
+
+//int main(){
+//    while (1){
+//        printf("please input:");
+//        char data[6];
+//        unsigned int size=full_read(STDIN_FILENO,data, sizeof(data));
+//        printf("size=%d,data=%s\n",size,data);
+//        fgets(data, sizeof(data),stdin);
+//        if (strncmp(data, "quit", 4) == 0){
+//            break;
+//        }
+//    }
+//}

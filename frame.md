@@ -7,12 +7,40 @@
 主要用于处理输入输出，用于并发处理IO事件通知的框架。处理的问题包括非阻塞，异步，超时，同时避免了使用多线程时可能带来的死锁问题。  
 之所以称为libevent，因为这种并发模型被称为是事件驱动的或数据流的方式。  
 libevent API 提供了一种机制，用于在文件描述符上发生特定事件或达到超时后执行回调函数。
+
+可以做http、dns、rpc的支持
+
 缺点：
 本身是单线程的，依赖于系统提供的特定输入输出接口。类似的还有libel,libuv
 
-*基于reactor模式的实现，关键在于IO事件的回调机制。*
+**基于reactor模式的实现，关键在于IO事件的回调机制。**
 
-待学习的部分：https://blog.csdn.net/skytering/article/details/104295406
+#### libevent包含下列组件：
+* evutil：对不同平台下的网络实现的差异进行抽象；
+* event、event_base：libevent的核心。为各种平台特定的、基于事件的非阻塞IO后端提供抽象API，让程序可以知道套接字何时已经准备好读或写，并且处理基本的超时功能，检测OS信号。
+* bufferevent：为libevent基于事件的核心提供更方便的封装。可以使你的程序请求缓存的读和写，让你知道何时真正的发生IO，而不是在sockets准备好时通知你。（bufferevent接口拥有多个后端，这样可以有效的利用系统提供的更高速的非阻塞IO方式，比如windows的IOCPAPI。）
+* evbuffer：在bufferevent层之下实现了缓冲功能，并且提供了方便有效的访问函数。
+* evhttp：一个简单的HTTP客户端/服务器实现。
+* evdns：一个简单的DNS客户端/服务器实现。
+* evrpc：一个简单的RPC实现。
+
+#### 库：
+* libevent_core：包含所有核心的事件和缓存功能。该库包含了所有的event_base, evbuffer, bufferevent和其他功能函数。        
+* libevent_extra：该库定义了特定协议的功能，比如HTTP,DNS和RPC。
+* libevent：该库只因历史原因而存在；他包含了libevent_core 和libevent_extra的内容。该库不应该在使用；它将会在未来的libevent删除。
+下面的库只会在某些平台上安装：
+* libevent_pthreads：该库基于可移植线程库pthreads，增加了线程和锁的实现机制。它独立于libevent_core，因此，除非你要在多线程中使用libevent，否则不需要连接pthreads库。        
+* libevent_openssl：这个库为使用bufferevent和OpenSSL进行加密的通信提供支持。它独立于libevent_core，因此，除非你确实需要加密通信，否则不需要连接OpenSSL库。
+
+各个方法介绍：https://blog.csdn.net/skytering/article/details/104295406
+
+
+##### event与bufferevent的区别（或者说使用bufferevent的好处）？
+* event：进行读写是直接操作fd的（可能是文件的fd，也可能是socket的fd），这时fd准备好了，但数据不一定都准备好，  
+使用bufferevent可以在数据准备好时， 才回调你处理函数，这时就不用等待读取数据了，更好。  
+* bufferevent：为libevent基于事件的核心提供更方便的封装。可以使你的程序请求缓存的读和写，让你知道何时真正的发生IO，  
+而不是在sockets准备好时通知你。（bufferevent接口拥有多个后端，这样可以有效的利用系统提供的更高速的非阻塞IO方式，比如windows的IOCPAPI。）  
+
 
 #### 函数介绍
 ````
@@ -123,7 +151,7 @@ int event_add(struct event *ev, const struct timeval *timeout);
   
   
 9、bufferevent_socket_new
-函数功能：通过一个已存在的socket描述符创建socket bufferevent--创建event缓冲区
+函数功能：通过一个已存在的socket描述符创建socket bufferevent--创建event缓冲区。在这个里面会指定是哪个fd
 函数原型：struct bufferevent *bufferevent_socket_new(struct event_base *base, evutil_socket_t fd, int options);
 
 参数说明：
@@ -437,6 +465,20 @@ recvfrom
     成功：接收的字节数
     出错：-1
 ````
+### read和write特点
+read()请介绍检查和函数调用的返回值write()。这些函数不保证一次（一次调用）读/写指定数量的字节。
+
+socket的read会出现沾包和拆包的问题。write不会出现问题。  
+解决方法？？  
+2.1、服务器端先发送数据的长度，然后再发送数据--先发送长度协议，之后再发送指定长度的数据，比较简单。  
+2.2、每条数据后面设置结束字符，比如‘\n’--不太好。  
+
+### 为什么使用read函数进行读取时，可返回数据？
+对于阻塞套接字，read将等待直到有一些数据要读取，该数据可能是 1 个字节或 1MB。然后，内核将复制内核内部缓冲区中的尽可能多的数据或请求的字节数，以较小者为准。  
+read此后将立即返回，无需等待进一步的数据。读取的返回值报告实际读取的字节数。  
+你的程序之所以有效，是因为你的连接速度很快，而且你恰好是以合理的块编写的。然而，一旦您在现实世界中推出您的程序，您可能会发现您的程序崩溃了。  
+这是因为您read可能只返回不带空终止符的字符串的一部分。当您调用时，puts缓冲区将溢出，您可能会崩溃（或更糟）。  
+
 
 ### ntohl()、htonl()、ntohs()、htons()函数用法
 ntohl()、htonl()、ntohs()、htons()这几个函数的作用是进行字节顺序的转换   

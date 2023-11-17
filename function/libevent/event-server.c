@@ -5,8 +5,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
-#include "../include/libevent/event2/event.h"
-#include "../header/util.h"
+#include "../../include/libevent/event2/event.h"
+#include "../../header/util.h"
 
 #define MAX 1000
 

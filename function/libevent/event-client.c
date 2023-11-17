@@ -8,8 +8,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
-#include "../include/libevent/event2/event.h"
-#include "../header/util.h"
+#include "../../include/libevent/event2/event.h"
+#include "../../header/util.h"
 
 
 void socket_read_cb(int fd, short events, void *null){
@@ -102,28 +102,9 @@ int main(){
     event_add(ev_cmd, NULL);
 
     printf("client before\n");
-    //todo 应该会阻塞循环，直到退出应用
+    //会阻塞循环，直到退出应用
     int dis_ret=event_base_dispatch(root_event);
     printf("client dis_ret:%d\n",dis_ret);
-
-//    char buf[100];
-//    while (1){
-//        printf("please input:");
-//        //接收输入数据
-//        fgets(buf, sizeof(buf),stdin);
-//
-//        //用于比较两个字符串的前n 个字符是否相等
-//        if (strncmp(buf, "quit", 4) == 0){
-//            //退出
-//            break;
-//        }
-//
-//        int ret=full_write(c_fd,buf, sizeof(buf));
-//        if(ret<0){
-//            perror("write error");
-//            break;
-//        }
-//    }
 
     //释放资源
     event_base_free(root_event);

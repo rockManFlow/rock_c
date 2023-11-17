@@ -2,18 +2,23 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "../include/libevent/event.h"
-#include "../include/libevent/event2/bufferevent.h"
+#include <unistd.h>
+#include "../../include/libevent/event.h"
 
 int tcp_connect_server(const char* server_ip, int port);
-void buffer_cmd_msg_cb(struct bufferevent* bev, void* arg);
+void buffer_cmd_msg_cb(int fd,short events, void* arg);
 void server_msg_cb(struct bufferevent* bev, void* arg);
 void event_cb(struct bufferevent *bev, short event, void *arg);
 
+/**
+ * 也没问题
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, char** argv)
 {
     //创建根节点
@@ -21,7 +26,11 @@ int main(int argc, char** argv)
     //创建并且初始化buffer缓冲区--创建缓冲区
     struct bufferevent* bev = bufferevent_socket_new(base, -1,BEV_OPT_CLOSE_ON_FREE);
 
-    bufferevent_setcb(bev, buffer_cmd_msg_cb, NULL, event_cb, (void*)NULL);
+    struct event *ev_cmd = event_new(base, STDIN_FILENO,
+                              EV_READ|EV_PERSIST,
+                              buffer_cmd_msg_cb, (void *)bev);
+
+    event_add(ev_cmd, NULL);
 
     struct sockaddr_in server_addr;
     memset(&server_addr, 0, sizeof(server_addr) );
@@ -32,7 +41,7 @@ int main(int argc, char** argv)
 
     //连接到 服务器ip地址和端口 初始化了 socket文件描述符 socket+connect--使用基于socket的bufferevent进行connect()连接
     bufferevent_socket_connect(bev, (struct sockaddr *)&server_addr,sizeof(server_addr));
-    //设置buffer的回调函数 主要设置了读回调 server_msg_cb ,传入参数是标准输入的读事件--todo 接收？
+    //设置buffer的回调函数 主要设置了读回调 server_msg_cb ,传入参数是标准输入的读事件
     bufferevent_setcb(bev, server_msg_cb, NULL, event_cb, NULL);
     //启用bufferevent相关缓存区
     bufferevent_enable(bev, EV_READ | EV_PERSIST);
@@ -44,20 +53,19 @@ int main(int argc, char** argv)
     return 0;
 }
 //终端输入回调
-void buffer_cmd_msg_cb(struct bufferevent* bev, void* arg)
+void buffer_cmd_msg_cb(int fd,short events, void* arg)
 {
     char msg[1024];
 
-//    int ret = read(fd, msg, sizeof(msg));
-    //从buffer缓冲区中来获取数据
-    int ret = bufferevent_read(bev, msg, sizeof(msg));
-    if( ret < 0 )
-    {
+    int ret = read(fd, msg, sizeof(msg));
+    if( ret < 0 ){
         perror("read fail ");
         exit(1);
     }
+    printf("buffer_cmd_msg_cb=%s\n",msg);
 
 
+    struct bufferevent *bev = (struct bufferevent *)arg;
     //把终端的消息发送给服务器端
     bufferevent_write(bev, msg, ret);
 }
@@ -74,8 +82,8 @@ void server_msg_cb(struct bufferevent* bev, void* arg)
 
 void event_cb(struct bufferevent *bev, short event, void *arg)
 {
-
     if (event & BEV_EVENT_EOF)
+        //当server端关闭
         printf("connection closed\n");
     else if (event & BEV_EVENT_ERROR)
         printf("some other error\n");
@@ -85,6 +93,7 @@ void event_cb(struct bufferevent *bev, short event, void *arg)
         return ;
     }
 
+    //会关闭client连接
     //这将自动close套接字和free读写缓冲区
     bufferevent_free(bev);
     //释放event事件 监控读终端

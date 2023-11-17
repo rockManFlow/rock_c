@@ -3,7 +3,7 @@
 //
 #include <stdio.h>
 #include <malloc/_malloc.h>
-#include "../header/call.h"
+#include "../../header/call.h"
 
 int length=0;
 int moveAfterOne(int *a,int startIndex,int endIndex);
