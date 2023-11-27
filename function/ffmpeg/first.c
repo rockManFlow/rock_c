@@ -148,7 +148,7 @@ int main(int argc, char const *argv[]) {
             pkt.pos = -1;
             pkt.stream_index = stream2;
             av_interleaved_write_frame(ofmt_ctx, &pkt);
-            av_packet_unref(&pkt);
+            av_packet_unref(&pkt);//必须要有，否则每帧解码av_read_frame都会产生堆内存，造成内存泄漏
         }
     }
     //写尾信息
