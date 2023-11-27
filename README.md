@@ -400,4 +400,11 @@ CMAKE_CXX_COMPILER：g++地址。
 4. tip  
 项目中引入的静态代码库，如果想执行，必须采用这种方式进行打包生成可运行程序。  
 示例：gcc event-server.c ../lib/libevent/*.a -o event-server  
- 
+
+### 25、extern用法
+可以在一个文件中引用另一个文件中定义的变量或者函数。
+extern int num;只是进行声明，让去其他的地方进行查找。
+extern void func();
+
+变量必须是全局变量。函数肯定是全局的。
+告诉编译器这个是存在的，但是不是在这之前声明的，你到别的地方找找。

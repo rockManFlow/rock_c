@@ -1,0 +1,14 @@
+prefix=/Users/opayc/c_file/ffmpeg
+exec_prefix=${prefix}
+libdir=/Users/opayc/c_file/ffmpeg/lib
+includedir=/Users/opayc/c_file/ffmpeg/include
+
+Name: libavfilter
+Description: FFmpeg audio/video filtering library
+Version: 9.3.100
+Requires: libswscale >= 7.1.100, libpostproc >= 57.1.100, libavformat >= 60.3.100, libavcodec >= 60.3.100, libswresample >= 4.10.100, libavutil >= 58.2.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavfilter -framework OpenGL -framework OpenGL -pthread -lm -framework CoreImage -framework AppKit
+Libs.private: 
+Cflags: -I${includedir}

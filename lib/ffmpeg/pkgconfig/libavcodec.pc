@@ -1,0 +1,14 @@
+prefix=/Users/opayc/c_file/ffmpeg
+exec_prefix=${prefix}
+libdir=/Users/opayc/c_file/ffmpeg/lib
+includedir=/Users/opayc/c_file/ffmpeg/include
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 60.3.100
+Requires: libswresample >= 4.10.100, libavutil >= 58.2.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavcodec -liconv -lm -framework AudioToolbox -L/opt/homebrew/Cellar/fdk-aac/2.0.2/lib -lfdk-aac -L/opt/homebrew/Cellar/speex/1.2.1/lib -lspeex -L/opt/homebrew/Cellar/x264/r3095/lib -lx264 -L/opt/homebrew/Cellar/x265/3.5/lib -lx265 -pthread -lz -framework VideoToolbox -framework CoreFoundation -framework CoreMedia -framework CoreVideo -framework CoreServices
+Libs.private: 
+Cflags: -I${includedir}
