@@ -21,4 +21,14 @@ link_directories(${LINK_DIR})
 add_executable(rock_c event-server.c hello-world.c bufferevent_client.c)
 
 #将第三方库链接在一起
-target_link_libraries(rock_c libevent/libevent.a libevent/libevent_core.a libevent/libevent_extra.a libevent/libevent_pthreads.a)
+#target_link_libraries(rock_c libevent/libevent.a libevent/libevent_core.a libevent/libevent_extra.a libevent/libevent_pthreads.a)
+
+target_link_libraries(rock_c
+        #FFmpeg 库
+        avcodec
+        avfilter
+        avformat
+        avutil
+        swresample
+        swscale
+        )

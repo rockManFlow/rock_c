@@ -325,6 +325,8 @@
  * to avoid unnecessary rebuilds. When included externally, keep including
  * the full version information. */
 #include "../libavformat/version.h"
+#include "../libavutil/frame.h"
+
 #endif
 
 struct AVFormatContext;

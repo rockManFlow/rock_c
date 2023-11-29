@@ -8,6 +8,17 @@
     验证是可用的
 
 
+【】应用2
+打静态包
+    gcc my.c ../../lib/ffmpeg/*.a -o my_ffmpeg
+
+audiotoolboxenc.o
+
+
+
+
+
+
 【】实现完成之后，通过java来调用实现的服务端和客户端逻辑代码
 【】ffmpeg项目学习
 

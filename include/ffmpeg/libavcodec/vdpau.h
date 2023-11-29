@@ -49,7 +49,7 @@
  * @{
  */
 
-//#include "vdpau/vdpau.h"
+#include <vdpau/vdpau.h>
 
 #include "../libavutil/avconfig.h"
 #include "../libavutil/attributes.h"
