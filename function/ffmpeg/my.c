@@ -1,8 +1,8 @@
 /**
  * 简单的打开-读取-解码-关闭流程
  */
-#include "../../include/ffmpeg/libavformat/avformat.h"
-#include "../../include/ffmpeg/libavcodec/packet.h"
+#include "../../include/ffmpeg/win/libavformat/avformat.h"
+#include "../../include/ffmpeg/win/libavcodec/packet.h"
 
 int main(){
     //这将注册所有的FFmpeg组件，以便在后续的操作中能够正确地使用它们。
