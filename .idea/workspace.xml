@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="811f8466-e984-4f76-8f44-ef0c658d5ec7" name="Changes" comment="ffmpeg框架引入" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/include/ffmpeg/libavformat/avformat.h" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2XCcsmJ3iXXXWTFXBgcSz7vlzmd" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "/Users/opayc/products/rock_c",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.build",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/third" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/function/base" />
+      <recent name="$PROJECT_DIR$/function/libevent" />
+      <recent name="$PROJECT_DIR$/include/libevent/event2" />
+      <recent name="$PROJECT_DIR$/include/libevent" />
+      <recent name="$PROJECT_DIR$/source" />
+    </key>
+  </component>
+  <component name="RunManager" selected="C/C++ File.my.c">
+    <configuration name="2.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="rock_c" TARGET_NAME="2.c" CONFIG_NAME="2.c">
+      <option name="sourceFile" value="function/ffmpeg/2.c" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="event-server.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="rock_c" TARGET_NAME="event-server.c" CONFIG_NAME="event-server.c">
+      <option name="sourceFile" value="function/event-server.c" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="my.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="rock_c" TARGET_NAME="my.c" CONFIG_NAME="my.c">
+      <option name="sourceFile" value="function/ffmpeg/my.c" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="util.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="rock_c" TARGET_NAME="util.c" CONFIG_NAME="util.c">
+      <option name="sourceFile" value="function/util.c" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="vga.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="rock_c" TARGET_NAME="vga.c" CONFIG_NAME="vga.c">
+      <option name="sourceFile" value="function/vga.c" />
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="C/C++ File.my.c" />
+        <item itemvalue="C/C++ File.2.c" />
+        <item itemvalue="C/C++ File.util.c" />
+        <item itemvalue="C/C++ File.event-server.c" />
+        <item itemvalue="C/C++ File.vga.c" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="811f8466-e984-4f76-8f44-ef0c658d5ec7" name="Changes" comment="" />
+      <created>1698136710328</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698136710328</updated>
+      <workItem from="1698136712046" duration="36647000" />
+      <workItem from="1698733137171" duration="72328000" />
+      <workItem from="1699494397876" duration="28998000" />
+      <workItem from="1699957503076" duration="689000" />
+      <workItem from="1699959605954" duration="102576000" />
+      <workItem from="1702871249963" duration="1395000" />
+    </task>
+    <task id="LOCAL-00001" summary="C学习提交">
+      <created>1698231861259</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1698231861259</updated>
+    </task>
+    <task id="LOCAL-00002" summary="C学习提交">
+      <created>1698319110320</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1698319110320</updated>
+    </task>
+    <task id="LOCAL-00003" summary="C学习提交">
+      <created>1698376238394</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698376238394</updated>
+    </task>
+    <task id="LOCAL-00004" summary="C学习提交">
+      <created>1698747159475</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698747159475</updated>
+    </task>
+    <task id="LOCAL-00005" summary="C学习">
+      <created>1699006973827</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1699006973827</updated>
+    </task>
+    <task id="LOCAL-00006" summary="C--文件的读写">
+      <created>1699351828938</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1699351828938</updated>
+    </task>
+    <task id="LOCAL-00007" summary="C-引入libevent静态库文件">
+      <created>1699435573040</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1699435573040</updated>
+    </task>
+    <task id="LOCAL-00008" summary="C方向确定">
+      <created>1699605658030</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1699605658030</updated>
+    </task>
+    <task id="LOCAL-00009" summary="libevent学习">
+      <created>1699959640966</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1699959640966</updated>
+    </task>
+    <task id="LOCAL-00010" summary="libevent学习-验证client与server socket通信是没问题的">
+      <created>1700044677559</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1700044677559</updated>
+    </task>
+    <task id="LOCAL-00011" summary="libevent学习-验证client与server socket通信">
+      <created>1700132801154</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1700132801154</updated>
+    </task>
+    <task id="LOCAL-00012" summary="libevent学习-验证client与server socket通信">
+      <created>1700217569371</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1700217569371</updated>
+    </task>
+    <task id="LOCAL-00013" summary="ffmpeg框架引入">
+      <created>1701052231719</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1701052231719</updated>
+    </task>
+    <task id="LOCAL-00014" summary="ffmpeg框架引入">
+      <created>1701078315175</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1701078315175</updated>
+    </task>
+    <task id="LOCAL-00015" summary="ffmpeg框架引入">
+      <created>1701255730206</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1701255730206</updated>
+    </task>
+    <task id="LOCAL-00016" summary="ffmpeg框架引入">
+      <created>1702546131965</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1702546131965</updated>
+    </task>
+    <task id="LOCAL-00017" summary="ffmpeg框架引入">
+      <created>1702889143164</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1702889143164</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="C学习提交" />
+    <MESSAGE value="C学习" />
+    <MESSAGE value="C--文件的读写" />
+    <MESSAGE value="C-引入libevent静态库文件" />
+    <MESSAGE value="C方向确定" />
+    <MESSAGE value="libevent学习" />
+    <MESSAGE value="libevent学习-验证client与server socket通信是没问题的" />
+    <MESSAGE value="libevent学习-验证client与server socket通信" />
+    <MESSAGE value="ffmpeg框架引入" />
+    <option name="LAST_COMMIT_MESSAGE" value="ffmpeg框架引入" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/function/base/second.c</url>
+          <line>18</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/function/base/second.c</url>
+          <line>24</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/function/base/second.c</url>
+          <line>184</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
