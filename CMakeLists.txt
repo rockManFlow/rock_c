@@ -12,16 +12,16 @@ set(INC_DIR ./include)
 #声明链接库路径
 set(LINK_DIR ./lib)
 
-#指定生成文件的输出路径
-set(PROJECT_BINARY_DIR /Users/opayc/products/rock_c/output)
+#指定生成文件的输出路径 /Users/opayc/products/rock_c/output
+set(PROJECT_BINARY_DIR D:/myProjects/rock_c/output)
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_BINARY_DIR}/lib)
 
 
 #引入头文件
-include_directories(${INC_DIR}/ffmpeg/)
+include_directories(${INC_DIR}/ffmpeg/win)
 #引入库文件
-link_directories(${LINK_DIR}/ffmpeg/)
+link_directories(${LINK_DIR}/ffmpeg/win)
 
 
 
