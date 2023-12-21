@@ -384,7 +384,28 @@ int main() {
 
 //    error();
 //    typedefD();
+
+
     return 0;
+}
+
+void hong(){
+    #if _WIN32
+        system("color 0c");
+            printf("http://c.biancheng.net\n");
+    #elif __linux__
+        printf("\033[22;31mhttp://c.biancheng.net\n\033[22;30m");
+    #else
+        printf("http://c.biancheng.net\n");
+    #endif
+    /**
+     * #if、#elif、#else 和 #endif 都是预处理命令，整段代码的意思是：如果宏 _WIN32 的值为真，就保留第 4、5 行代码，删除第 7、9 行代码；
+     * 如果宏 __linux__ 的值为真，就保留第 7 行代码；如果所有的宏都为假，就保留第 9 行代码。
+        这些操作都是在预处理阶段完成的，多余的代码以及所有的宏都不会参与编译，不仅保证了代码的正确性，还减小了编译后文件的体积。
+        这种能够根据不同情况编译不同代码、产生不同目标文件的机制，称为条件编译。条件编译是预处理程序的功能，不是编译器的功能。
+        条件编译需要多个预处理命令的支持
+
+     */
 }
 /**
  * 类型强转

@@ -36,13 +36,19 @@ ffmpeg整体项目结构
 --enable-libspeex --enable-videotoolbox --enable-pthreads --enable-version3 --enable-hardcoded-tables 
 --cc=clang --host-cflags= --host-ldflags=
 
+
+
+
+
 **tip:**
 - 1、去掉：--enable-shared，会生成静态库
 - 2、--prefix=是设置安装地址
 - 3、在这个指定的路径下，会包含include和lib中包含静态资源
 - 4、./configure 是生成makefile文件，make进行编译，make install进行链接安装
 
-
+**在Mac中安装ffmpeg的方式**
+- 1、使用像Homebrew或MacPorts这样的包管理器来安装ffmpeg。这些将自动使您的FFmpeg安装保持最新。
+- 2、下载源代码，然后运行带有所需标志的。/configure, make和make install。但是，必须手动设置配置选项，并且您需要自己安装第三方库。
 
 ------------------------------------------------------------
 #### ffmpeg API学习
