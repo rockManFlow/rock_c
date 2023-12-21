@@ -4,6 +4,7 @@
 #include "../../include/ffmpeg/win/libavformat/avformat.h"
 #include "../../include/ffmpeg/win/libavcodec/packet.h"
 #include "../../include/ffmpeg/win/libavcodec/avcodec.h"
+#include "../../include/ffmpeg/win/libavcodec/vdpau.h"
 
 int main(){
     //这将注册所有的FFmpeg组件，以便在后续的操作中能够正确地使用它们。
@@ -27,12 +28,14 @@ int main(){
         fprintf(stderr, "No Found Video File\n");
         return ret;
     }
-    // 循环解码--读取每一帧视频-或者定位文件avformat_seek_file()+av_seek_frame()
+    //循环读取每一帧视频或者音频若干帧压缩数据-或者定位文件avformat_seek_file()+av_seek_frame()
     while (av_read_frame(fmt_ctx, packet) >= 0){
-        if (packet->stream_index == video_stream_idx){
-            ret = decode_packet(video_dec_ctx, packet);
-        }else if (packet->stream_index == audio_stream_idx){
-            ret = decode_packet(audio_dec_ctx, packet);
+        if (packet->stream_index == 1){
+            //视频-解压
+            ret = avcodec_decode_video2(video_dec_ctx, packet);
+        }else if (packet->stream_index == 0){
+            //音频-解压
+            ret = avcodec_decode_audio4(audio_dec_ctx, packet);
         }
         // 处理视频帧
         printf("streamIndex=%d, size=%d, pts=%lld, flag=%d\n",
@@ -47,3 +50,7 @@ int main(){
     avformat_close_input(&fmt_ctx);
     return 0;
 }
+
+/**
+ *
+ */

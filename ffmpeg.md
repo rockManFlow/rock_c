@@ -76,7 +76,10 @@ avformat_free_context();释放该结构里的所有东西以及该结构本身
 avformat_close_input();关闭解复用器。关闭后就不再需要使用avformat_free_context 进行释放。
 avformat_open_input();打开输入视频文件
 avformat_find_stream_info()：获取音视频文件信息
-av_read_frame(); 读取音视频包
+av_read_frame(); 读取音视频包-
+详解：
+    av_read_frame()的作用是读取码流中的音频若干帧或者视频一帧。例如，解码视频的时候，每解码一个视频帧，
+    需要先调 用 av_read_frame()获得一帧视频的压缩数据，然后才能对该数据进行解码（例如H.264中一帧压缩数据通常对应一NAL）
 avformat_seek_file(); 定位文件
 av_seek_frame():定位文件
 
@@ -177,13 +180,17 @@ type：编解码器类型
 id：编解码器ID
 一些编解码的接口函数，比如int (*decode)()
 
-9、AVPacket
+9、AVPacket(核心类)
 pts：显示时间戳
 dts：解码时间戳
 data：压缩编码数据
 size：压缩编码数据大小
 pos:数据的偏移地址
-stream_index：所属的AVStream
+stream_index：流id，可以通过id来区分是视频流、音频流、字幕流--0表示Video，1表示Audio ，
+flag: 描述该packet的属性，比如该packet的内容损坏/需要放弃等
+duration:该packet的播放持续时间，和pts/dts的单位一样。
+比如duration=40,AVStream->time_base=0.001秒，则该packet的duration=40*0.001=0.04秒。
+通常duration=下一个packet的pts - 当前packet的pts。
 
 10、AVFrame
 data：解码后的图像像素数据（音频采样数据）
