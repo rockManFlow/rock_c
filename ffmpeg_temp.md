@@ -1,10 +1,14 @@
 视频像素数据在视频播放器的解码流程中的位置
 ![img.png](视频播放流程及各个部分数据.png)
 
-1、解协议（网络协议）、解封装（mkv等）、解码（把h256，aac等视音频压缩格式解压）、视音频像素源数据（yuv420p,pcm，rgb等）  
+流程部分-分别对应各个部分的处理  
+1、解协议（网络协议）--protocol_check.c  
+2、解封装（mkv等）--package_check.c  
+3、解码（把h256，aac等视音频压缩格式解压）--xxx_coding_check.c  
+4、视音频像素源数据（yuv420p,pcm，rgb等）--xxx_source_check.c   
 
 ### 【】像素数据的分析
-1. 【】memset作用是什么？  
+
 # include <string.h>
 void *memset(void *s, int c, unsigned long n);
 函数的功能是：将指针变量 s 所指向的前 n 字节的内存单元用一个“整数” c 替换
@@ -39,5 +43,21 @@ void *memset(void *s, int c, unsigned long n);
 把这些脉冲的幅值按一定的精度进行量化，这些量化后的数值被连续地输出、传输、处理或记录到存储介质中，
 所有这些组成了数字音频的产生过程。
 6. feof作用是什么？
+   feof是C语言标准库函数，其原型在stdio.h中，其功能是检测流上的文件结束符，
+   如果文件结束，则返回非0值，否则返回0（即，文件结束：返回非0值；文件未结束：返回0值）。
+7. memcpy()作用
+   memcpy()--<string.h>
+   void *memcpy(void *str1, const void *str2, size_t n) 从存储区 str2 复制 n 个字节到存储区 str1
+8. fseek作用
+   int fseek(FILE *stream, long offset, int origin);
+   stream : 待移动的FILE型指针变量
+   offset：偏移量，每次移动多少个字节
+   origin: 指针开始的位置
+   fseek函数功能是将文件指针移动到指定的地方，因此可以通过fseek重置文件指针的位置。 
+   返回值： 如果fseek ()返回值为0，表示执行成功，如果返回值为非0， 则执行失败。
+9. rewind
+   是C 程序中的库函数。 功能: 将文件内部的位置指针重新指向一个流(数据流/文件)的开头。
+10. 字符所占字节大小
+    char与unsigned char没有什么不同，都是一个字节，唯一的区别是，char的最高位为符号位，因此char能表示-128~127,unsigned char没有符号位，因此能表示0~255
 
 

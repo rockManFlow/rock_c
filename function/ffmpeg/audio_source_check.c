@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 
 /**
@@ -192,7 +193,16 @@ int simplest_pcm16le_cut_singlechannel(char *url,int start_num,int dur_num){
  * 将PCM16LE双声道音频采样数据转换为WAVE格式音频数据
  * WAVE格式音频（扩展名为“.wav”）是Windows系统中最常见的一种音频。该格式的实质就是在PCM文件的前面加了一个文件头。
  * 本程序的函数就可以通过在PCM文件前面加一个WAVE文件头从而封装为WAVE格式音频。
- * Convert PCM16LE raw data to WAVE format
+ *
+ *
+ * vave文件格式：
+ *  WAVE_HEADER
+    WAVE_FMT
+    WAVE_DATA
+    PCM数据
+ *
+ *
+ *
  * @param pcmpath      Input PCM file.
  * @param channels     Channel number of PCM file.
  * @param sample_rate  Sample rate of PCM file.
@@ -268,9 +278,10 @@ int simplest_pcm16le_to_wave(const char *pcmpath,int channels,int sample_rate,co
     pcmDATA.dwSize=0;
     fseek(fpout,sizeof(WAVE_DATA),SEEK_CUR);
 
+    //循环把pcm数据写到目标文件中
     fread(&m_pcmData,sizeof(unsigned short),1,fp);
     while(!feof(fp)){
-        pcmDATA.dwSize+=2;
+        pcmDATA.dwSize+=2;//unsigned short 每次写的是2个字节，因此+2
         fwrite(&m_pcmData,sizeof(unsigned short),1,fpout);
         fread(&m_pcmData,sizeof(unsigned short),1,fp);
     }
