@@ -142,32 +142,32 @@ rock_c/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\rock_c.dir\build.make CMakeFiles/rock_c.dir/build
 .PHONY : rock_c/fast
 
-function/ffmpeg/my.obj: function/ffmpeg/my.c.obj
+function/ffmpeg/my_base_learn.obj: function/ffmpeg/my_base_learn.c.obj
 
-.PHONY : function/ffmpeg/my.obj
+.PHONY : function/ffmpeg/my_base_learn.obj
 
 # target to build an object file
-function/ffmpeg/my.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\rock_c.dir\build.make CMakeFiles/rock_c.dir/function/ffmpeg/my.c.obj
-.PHONY : function/ffmpeg/my.c.obj
+function/ffmpeg/my_base_learn.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\rock_c.dir\build.make CMakeFiles/rock_c.dir/function/ffmpeg/my_base_learn.c.obj
+.PHONY : function/ffmpeg/my_base_learn.c.obj
 
-function/ffmpeg/my.i: function/ffmpeg/my.c.i
+function/ffmpeg/my_base_learn.i: function/ffmpeg/my_base_learn.c.i
 
-.PHONY : function/ffmpeg/my.i
+.PHONY : function/ffmpeg/my_base_learn.i
 
 # target to preprocess a source file
-function/ffmpeg/my.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\rock_c.dir\build.make CMakeFiles/rock_c.dir/function/ffmpeg/my.c.i
-.PHONY : function/ffmpeg/my.c.i
+function/ffmpeg/my_base_learn.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\rock_c.dir\build.make CMakeFiles/rock_c.dir/function/ffmpeg/my_base_learn.c.i
+.PHONY : function/ffmpeg/my_base_learn.c.i
 
-function/ffmpeg/my.s: function/ffmpeg/my.c.s
+function/ffmpeg/my_base_learn.s: function/ffmpeg/my_base_learn.c.s
 
-.PHONY : function/ffmpeg/my.s
+.PHONY : function/ffmpeg/my_base_learn.s
 
 # target to generate assembly for a file
-function/ffmpeg/my.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\rock_c.dir\build.make CMakeFiles/rock_c.dir/function/ffmpeg/my.c.s
-.PHONY : function/ffmpeg/my.c.s
+function/ffmpeg/my_base_learn.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\rock_c.dir\build.make CMakeFiles/rock_c.dir/function/ffmpeg/my_base_learn.c.s
+.PHONY : function/ffmpeg/my_base_learn.c.s
 
 # Help Target
 help:
@@ -178,9 +178,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... rock_c
-	@echo ... function/ffmpeg/my.obj
-	@echo ... function/ffmpeg/my.i
-	@echo ... function/ffmpeg/my.s
+	@echo ... function/ffmpeg/my_base_learn.obj
+	@echo ... function/ffmpeg/my_base_learn.i
+	@echo ... function/ffmpeg/my_base_learn.s
 .PHONY : help
 
 

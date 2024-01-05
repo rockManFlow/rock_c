@@ -107,6 +107,9 @@ ffmpeg API
 7. 输出到目标
 常用功能：视频转码、提取音频、截取视频、裁剪画面、旋转画面、添加水印、添加字幕、合并视频、
 
+![ffmpeg新的流程.png](新的流程.png)
+
+
 【】API解释
 avformat_alloc_context();负责申请一个AVFormatContext结构的内存,并进行简单初始化
 avformat_free_context();释放该结构里的所有东西以及该结构本身
