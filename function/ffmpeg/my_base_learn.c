@@ -29,15 +29,19 @@ int main(){
         return ret;
     }
     //循环读取每一帧视频或者音频若干帧压缩数据-或者定位文件avformat_seek_file()+av_seek_frame()
+    //todo 1、这个类似于解封装：把mp4等视频封装格式解成一个个视音频压缩的数据
     while (av_read_frame(fmt_ctx, packet) >= 0){
+        //todo 2、packet中的数据是视频h.256或音频aac等压缩的视音频数据
         if (packet->stream_index == 1){
-            //视频-解压
+            //视频h.256等压缩格式的-解压
             ret = avcodec_decode_video2(video_dec_ctx, packet);
+            //经过解码之后，获取到的数据是yuv等视频源码数据
         }else if (packet->stream_index == 0){
-            //音频-解压
+            //音频aac等压缩格式的-解压
             ret = avcodec_decode_audio4(audio_dec_ctx, packet);
+            //经过解码之后，获取到的数据是pcm等音频源码数据
         }
-        // 处理视频帧
+        // todo 3、解码之后的处理视频帧---源视音频帧数据
         printf("streamIndex=%d, size=%d, pts=%lld, flag=%d\n",
                packet->stream_index,
                packet->size,

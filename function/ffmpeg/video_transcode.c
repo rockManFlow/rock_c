@@ -5,15 +5,23 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-
-#include "../../include/ffmpeg/libavutil/opt.h"
-#include "../../include/ffmpeg/libavutil/mathematics.h"
-#include "../../include/ffmpeg/libavformat/avformat.h"
-#include "../../include/ffmpeg/libswscale/swscale.h"
-#include "../../include/ffmpeg/libswresample/swresample.h"
-#include "../../include/ffmpeg/libavcodec/avcodec.h"
-#include "../../include/ffmpeg/libavcodec/vdpau.h"
-
+#ifdef _WIN32
+    #include "../../include/ffmpeg/win/libavutil/opt.h"
+    #include "../../include/ffmpeg/win/libavutil/mathematics.h"
+    #include "../../include/ffmpeg/win/libavformat/avformat.h"
+    #include "../../include/ffmpeg/win/libswscale/swscale.h"
+    #include "../../include/ffmpeg/win/libswresample/swresample.h"
+    #include "../../include/ffmpeg/win/libavcodec/avcodec.h"
+    #include "../../include/ffmpeg/win/libavcodec/vdpau.h"
+#else
+    #include "../../include/ffmpeg/mac/libavutil/opt.h"
+    #include "../../include/ffmpeg/mac/libavutil/mathematics.h"
+    #include "../../include/ffmpeg/mac/libavformat/avformat.h"
+    #include "../../include/ffmpeg/mac/libswscale/swscale.h"
+    #include "../../include/ffmpeg/mac/libswresample/swresample.h"
+    #include "../../include/ffmpeg/mac/libavcodec/avcodec.h"
+    #include "../../include/ffmpeg/mac/libavcodec/vdpau.h"
+#endif
 /* 5 seconds stream duration */
 #define STREAM_DURATION 200.0
 #define STREAM_FRAME_RATE 25 /* 25 images/s */
