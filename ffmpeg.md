@@ -166,13 +166,20 @@ avcodec_close():关闭解码器
 AVPacket--解码--AVFrame--编码--AVPacket
 
 
-数据结构分析
+每个AVStream对应一个AVCodecContext，每个AVCodecContext对应一个AVCodec(AVCodecContext是一个描述编解码器上下文的数据结构，
+包含了众多编解码器需要的参数信息，AVCodec包含该视频/音频对应的解码器，每个解码器都对应一个AVCodec结构，且在编译时确定)
+AVStream--AVCodecContext--AVCodec
+
+- 数据结构分析
 1、AVFormatContext
-iformat：输入媒体的AVInputFormat，比如指向AVInputFormat ff_flv_demuxer
-nb_streams：输入媒体的AVStream 个数
-streams：输入媒体的AVStream []数组
-duration：输入媒体的时长（以微秒为单位），计算方式可以参考av_dump_format()函数。
-bit_rate：输入媒体的码率
+AVIOContext *pb：输入数据的缓存
+unsigned int nb_streams：视音频流的个数
+AVStream **streams：视音频流-输入媒体的AVStream []数组
+char filename[1024]：文件名
+int64_t duration：时长（单位：微秒us，转换为秒需要除以1000000）
+int bit_rate：比特率（单位bps，转换为kbps需要除以1000）
+AVDictionary *metadata：元数据
+
 
 2、AVInputFormat
 name：封装格式名称
@@ -201,10 +208,16 @@ sample_fmt：采样格式（只针对音频）
 
 
 6、AVCodec
-name：编解码器名称
-type：编解码器类型
-id：编解码器ID
-一些编解码的接口函数，比如int (*decode)()
+const char *name：编解码器的名字，比较短
+const char *long_name：编解码器的名字，全称，比较长
+enum AVMediaType type：指明了类型，是视频，音频，还是字幕
+enum AVCodecID id：ID，不重复
+const AVRational *supported_framerates：支持的帧率（仅视频）
+const enum AVPixelFormat *pix_fmts：支持的像素格式（仅视频）
+const int *supported_samplerates：支持的采样率（仅音频）
+const enum AVSampleFormat *sample_fmts：支持的采样格式（仅音频）
+const uint64_t *channel_layouts：支持的声道数（仅音频）
+int priv_data_size：私有数据的大小
 
 7、AVCodecContext
 codec：编解码器的AVCodec，比如指向AVCodec ff_aac_latm_decoder
@@ -220,7 +233,7 @@ type：编解码器类型
 id：编解码器ID
 一些编解码的接口函数，比如int (*decode)()
 
-9、AVPacket(核心类)
+9、AVPacket(核心类)--解码前数据，AVPacket是存储压缩编码数据相关信息的结构体
 pts：显示时间戳
 dts：解码时间戳
 data：压缩编码数据
@@ -232,16 +245,29 @@ duration:该packet的播放持续时间，和pts/dts的单位一样。
 比如duration=40,AVStream->time_base=0.001秒，则该packet的duration=40*0.001=0.04秒。
 通常duration=下一个packet的pts - 当前packet的pts。
 
-10、AVFrame
-data：解码后的图像像素数据（音频采样数据）
-linesize：对视频来说是图像中一行像素的大小；对音频来说是整个音频帧的大小
-width, height：图像的宽高（只针对视频）
-key_frame：是否为关键帧（只针对视频） 。
-pict_type：帧类型（只针对视频） 。例如I， P， B
-sample_rate：音频采样率（只针对音频）
-nb_samples：音频每通道采样数（只针对音频）
-pts：显示时间戳
+10、AVFrame--解码后数据
+uint8_t *data：解码后原始数据（对视频来说是YUV，RGB，对音频来说是PCM）
+int linesize：data中“一行”数据的大小。注意：未必等于图像的宽，一般大于图像的宽。
+int width, height：视频帧宽和高（1920x1080,1280x720...）
+int nb_samples：音频的一个AVFrame中可能包含多个音频帧，在此标记包含了几个
+int format：解码后原始数据类型（YUV420，YUV422，RGB24...）
+int key_frame：是否是关键帧
+enum AVPictureType pict_type：帧类型（I,B,P...）
+AVRational sample_aspect_ratio：宽高比（16:9，4:3...）
+int64_t pts：显示时间戳
+int coded_picture_number：编码帧序号
+int display_picture_number：显示帧序号
+int8_t *qscale_table：QP表
+uint8_t *mbskip_table：跳过宏块表
+int16_t (*motion_val)：运动矢量表
+uint32_t *mb_type：宏块类型表
+short *dct_coeff：DCT系数，这个没有提取过
+int8_t *ref_index：运动估计参考帧列表（貌似H.264这种比较新的标准才会涉及到多参考帧）
+int interlaced_frame：是否是隔行扫描
 
+解释
+AVFrame结构体一般用于存储原始数据（即非压缩数据，例如对视频来说是YUV，RGB，对音频来说是PCM），此外还包含了一些相关的信息。
+比如说，解码的时候存储了宏块类型表，QP表，运动矢量表等数据。
 ------------------------------------------------------------
 #### 转码过程
 ![转码过程图.png](转码过程.png)  
