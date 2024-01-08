@@ -143,6 +143,9 @@ avcodec_receive_frame(): 接收解码后数据
 avcodec_free_context():释放解码器上下文，包含了avcodec_close()
 avcodec_close():关闭解码器
 
+FFmpeg提供了两组函数，分别⽤于编码和解码：
+解码：avcodec_send_packet()、avcodec_receive_frame()。
+编码：avcodec_send_frame()、avcodec_receive_packet()。
 流程：
 1、分配编解码器上下文avcodec_alloc_context3
 2、降码流中的编解码信息拷贝到AVCodecContext中
