@@ -4,9 +4,9 @@
 /*
  * 解码视频，主要的测试格式 H264 和 MPEG-2 Video
  */
-#include <libavcodec/avcodec.h>
-#include <libavutil/frame.h>
-#include <libavutil/mem.h>
+#include "../../include/ffmpeg/win/libavcodec/avcodec.h"
+#include "../../include/ffmpeg/win/libavutil/frame.h"
+#include "../../include/ffmpeg/win/libavutil/mem.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,7 +29,7 @@ static void print_video_format(const AVFrame *frame) {
 static void decode(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame,
                    FILE *outfile) {
     int ret;
-    /* send the packet with the compressed data to the decoder */
+    /* send the packet with the compressed data to the decoder 解码AVPacket*/
     ret = avcodec_send_packet(dec_ctx, pkt);
     if (ret == AVERROR(EAGAIN)) {
         fprintf(stderr,
@@ -45,7 +45,7 @@ static void decode(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame,
     /* read all the output frames (infile general there may be any number of them
      */
     while (ret >= 0) {
-        // 对于frame, avcodec_receive_frame内部每次都先调用
+        // 对于frame, avcodec_receive_frame内部每次都先调用，接收解码后的源数据到 AVFrame
         ret = avcodec_receive_frame(dec_ctx, frame);
         if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF)
             return;

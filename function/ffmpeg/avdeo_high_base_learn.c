@@ -4,9 +4,9 @@
 /*
  * 解码音频，主要的测试格式aac和mp3
  */
-#include <libavcodec/avcodec.h>
-#include <libavutil/frame.h>
-#include <libavutil/mem.h>
+#include "../../include/ffmpeg/win/libavcodec/avcodec.h"
+#include "../../include/ffmpeg/win/libavutil/frame.h"
+#include "../../include/ffmpeg/win/libavutil/mem.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
