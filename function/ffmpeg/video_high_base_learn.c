@@ -89,7 +89,9 @@ static void decode(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame,
 // source.200kbps.768x320_10s.flv -vcodec mpeg2video -an -f mpeg2video
 // source.200kbps.768x320_10s.mpeg2 播放：ffplay -pixel_format yuv420p
 // -video_size 768x320 -framerate 25  source.200kbps.768x320_10s.yuv
-int main(int argc, char **argv) {
+int main() {
+    int argc=3;
+    char *argv={"error file","D:\\test_ffmpeg\\1234.mp4","D:\\test_ffmpeg\\1234.yuv"};
     const char *outfilename;
     const char *filename;
     const AVCodec *codec;
