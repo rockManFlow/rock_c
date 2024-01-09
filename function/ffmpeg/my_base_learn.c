@@ -45,15 +45,24 @@ int main(){
         return -1;
     }
 
-    AVCodecParameters *pInCodecCtx;
-    AVCodec *pInCodec;
-    pInCodecCtx = fmt_ctx->streams[videoindex]->codecpar;
+    AVCodecParameters *avCodecParameters;
+    avCodecParameters = fmt_ctx->streams[videoindex]->codecpar;
 
     //根据编码器id，查找对应的解码器
-    pInCodec = avcodec_find_decoder(pInCodecCtx->codec_id);
+    AVCodec *codec = avcodec_find_decoder(avCodecParameters->codec_id);
+    if(!codec){
+        printf("Cannot find any codec for audio.");
+        return -1;
+    }
+    AVCodecContext *codecCtx = avcodec_alloc_context3(codec);
+    if(avcodec_parameters_to_context(codecCtx,avCodecParameters)<0){
+        printf("Cannot alloc codec context.");
+        return -1;
+    }
+    codecCtx->pkt_timebase = fmt_ctx->streams[videoindex]->time_base;
 
-    if( avcodec_open2( pInCodecCtx, pInCodec,NULL) < 0){
-        printf("avcodec_open2 failed\n");
+    if(avcodec_open2(codecCtx,codec,NULL)<0){
+        printf("Cannot open audio codec.");
         return -1;
     }
 
@@ -66,15 +75,16 @@ int main(){
     while (av_read_frame(fmt_ctx, packet) >= 0){//读取一包，存放在AVPacket中
         //todo 2、packet中的数据是视频h.256或音频aac等压缩的视音频数据
         if (packet->stream_index == 1){
+            AVFrame *frame = av_frame_alloc();
             //视频h.256等压缩格式的-解压--发送解码数据
-            ret = avcodec_send_packet(pInCodecCtx, packet);//将AVPacket解码，将解码后的数据存放在AVFrame中
+            ret = avcodec_send_packet(codecCtx, packet);//将AVPacket解码，将解码后的数据存放在AVFrame中
             if( ret < 0){
                 printf("avcodec_decode_video2 failed:%d\n", ret);
                 return -1;
             }
             //经过解码之后，获取到的数据是yuv等视频源码数据-AVFrame类型)就是最原始的视频数据，我们可以对原始数据进行处理(缩放，裁剪等)
             //接收解码后的帧
-            avcodec_receive_frame(pInCodecCtx,)
+            avcodec_receive_frame(codecCtx,frame);
         }else if (packet->stream_index == 0){
             //音频aac等压缩格式的-解压
             ret = avcodec_decode_audio4(audio_dec_ctx, packet);

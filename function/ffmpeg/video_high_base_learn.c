@@ -176,6 +176,9 @@ int main() {
             }
         }
 
+        /**
+         * av_parser_parse2()函数用来解析数据包，在使用av_read_frame()读取音视频帧时，会调用到该函数进行数据包解析。
+         */
         ret = av_parser_parse2(parser, codec_ctx, &pkt->data, &pkt->size, data,
                                data_size, AV_NOPTS_VALUE, AV_NOPTS_VALUE, 0);
         if (ret < 0) {
