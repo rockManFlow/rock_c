@@ -5,8 +5,6 @@
  * 解码视频，主要的测试格式 H264 和 MPEG-2 Video
  */
 #include "../../include/ffmpeg/win/libavcodec/avcodec.h"
-#include "../../include/ffmpeg/win/libavutil/frame.h"
-#include "../../include/ffmpeg/win/libavutil/mem.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
