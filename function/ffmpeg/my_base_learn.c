@@ -1,6 +1,7 @@
 /**
  * 简单的打开-读取-解码-关闭流程
  */
+#include <libavutil/opt.h>
 #include "../../include/ffmpeg/win/libavformat/avformat.h"
 #include "../../include/ffmpeg/win/libavcodec/avcodec.h"
 static void print_video_format(const AVFrame *frame) {
@@ -129,7 +130,7 @@ int main(){
     //av视频包数据
     AVPacket *packet= av_packet_alloc();
     int ret;
-    //todo 1、这个类似于解封装：把mp4等视频封装格式解成一个个视音频压缩的数据
+    //1、这个类似于解封装：把mp4等视频封装格式解成一个个视音频压缩的数据
     // 打开视频文件，设置文件连接到 fmt_ctx--
     ret = avformat_open_input(&fmt_ctx, video, NULL, NULL);
     if (ret < 0) {
@@ -145,8 +146,8 @@ int main(){
 
     //fmt_ctx->streams;
     //可以直接找到视频流的位置通过fmt_ctx
-    int i = 0,videoindex = 0;
-    for(i=0;i<fmt_ctx->nb_streams;i++){
+    int videoindex = 0;
+    for(int i=0;i<fmt_ctx->nb_streams;i++){
         if( fmt_ctx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO){
             videoindex = i;
             break;
@@ -161,7 +162,7 @@ int main(){
     AVCodecParameters *avCodecParameters;
     avCodecParameters = fmt_ctx->streams[videoindex]->codecpar;
 
-    //根据编码器id，查找对应的解码器
+    //根据编码器id，查找对应的解码器-AVMEDIA_TYPE_VIDEO
     AVCodec *codec = avcodec_find_decoder(avCodecParameters->codec_id);
     if(!codec){
         printf("Cannot find any codec for audio.");
@@ -173,7 +174,7 @@ int main(){
         return -1;
     }
     codecCtx->pkt_timebase = fmt_ctx->streams[videoindex]->time_base;
-
+    av_opt_set(codecCtx->priv_data, "tune", "zerolatency", 0);
     if(avcodec_open2(codecCtx,codec,NULL)<0){
         printf("Cannot open audio codec.");
         return -1;
@@ -195,11 +196,11 @@ int main(){
                packet->pts,
                packet->flags);
 
-        if (packet->stream_index == 1){
+        if (packet->stream_index ==AVMEDIA_TYPE_VIDEO){
             //视频h.256等压缩格式的-解压--发送解码数据
             printf("video\n");
             decode(codecCtx,packet,frame,outfile);
-        }else if (packet->stream_index == 0){
+        }else if (packet->stream_index ==AVMEDIA_TYPE_AUDIO){
             //音频aac等压缩格式的-解压
             //经过解码之后，获取到的数据是pcm等音频源码数据
             printf("audio\n");
