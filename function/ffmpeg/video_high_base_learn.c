@@ -39,7 +39,6 @@ static void decode(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame,
                 av_get_err(ret), pkt->size);
         return;
     }
-
     /* read all the output frames (infile general there may be any number of them
      */
     while (ret >= 0) {
@@ -89,7 +88,7 @@ static void decode(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame,
 // -video_size 768x320 -framerate 25  source.200kbps.768x320_10s.yuv
 int main() {
     int argc=3;
-    char *argv={"error file","D:\\test_ffmpeg\\1234.mp4","D:\\test_ffmpeg\\1234.yuv"};
+    char *argv[]={"error file","D:\\test_ffmpeg\\1234.mp4","D:\\test_ffmpeg\\1234.yuv"};
     const char *outfilename;
     const char *filename;
     const AVCodec *codec;
@@ -151,7 +150,7 @@ int main() {
         exit(1);
     }
 
-    // 打开输入文件
+    // 打开输入文件--fopen_s函数的返回值则不同，正确返回0，不正确返回非0
     errno_t err = fopen_s(&infile, filename, "rb");
     if (err != 0) {
         fprintf(stderr, "Could not open %s\n", filename);
