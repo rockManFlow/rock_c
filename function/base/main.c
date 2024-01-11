@@ -368,6 +368,14 @@ int main() {
     int ret = 10 * DOUBLE(MAX);
     printf("ret %d\n",ret);
 
+    char *z_str="bc";
+    char *a_str="andbcdes";
+    if(strstr(a_str,"bc")!=NULL){
+        printf("contain\n");
+    } else{
+        printf("no contain\n");
+    }
+
 //    func();
 
     //point();

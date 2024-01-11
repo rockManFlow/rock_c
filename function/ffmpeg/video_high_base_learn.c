@@ -116,9 +116,11 @@ int main() {
 
     pkt = av_packet_alloc();
     enum AVCodecID video_codec_id = AV_CODEC_ID_H264;
-    if (strstr(filename, "264") != NULL) {
+    //包含264
+    if (strstr(filename, "264")!=NULL) {
         video_codec_id = AV_CODEC_ID_H264;
-    } else if (strstr(filename, "mpeg2") != NULL) {
+    } else if (strstr(filename, "mpeg2") !=NULL) {
+        //包含mpeg2
         video_codec_id = AV_CODEC_ID_MPEG2VIDEO;
     } else {
         printf("default codec id:%d\n", video_codec_id);
