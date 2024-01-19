@@ -24,9 +24,7 @@ static void decode(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame,
     /* send the packet with the compressed data to the decoder 解码AVPacket*/
     ret = avcodec_send_packet(dec_ctx, pkt);
     if (ret == AVERROR(EAGAIN)) {
-        fprintf(stderr,
-                "Receive_frame and send_packet both returned EAGAIN, which is an "
-                "API violation.\n");
+        fprintf(stderr,"Receive_frame and send_packet both returned EAGAIN, which is an API violation.\n");
     } else if (ret < 0) {
         fprintf(stderr,"Error submitting the packet to the decoder, err:%d, pkt_size:%d\n",ret, &pkt->size);
         return;
@@ -49,17 +47,26 @@ static void decode(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame,
             print_video_format(frame);
         }
 
+        //得到所有的大小 宽度乘以高度  解释: 在R G B 中有多少像素 就是宽度乘以高度, 在YUV中 有多少像素是由Y决定的 如果只有Y 那么只有亮度 就是黑白的
+        int y_size = dec_ctx->width * dec_ctx->height;
+        //Y亮度信息
+        fwrite(frame->data[0], 1, y_size, outfile);
+        //色度
+        fwrite(frame->data[1], 1, y_size / 4, outfile);
+        //浓度
+        fwrite(frame->data[2], 1, y_size / 4, outfile);
+
         // 一般H264默认为 AV_PIX_FMT_YUV420P, 具体怎么强制转为 AV_PIX_FMT_YUV420P
         // 在音视频合成输出的时候讲解 frame->linesize[1]  对齐的问题 正确写法
         // linesize[]代表每行的字节数量，所以每行的偏移是linesize[]
-        for (int j = 0; j < frame->height; j++)
-            fwrite(frame->data[0] + j * frame->linesize[0], 1, frame->width, outfile);
-        for (int j = 0; j < frame->height / 2; j++)
-            fwrite(frame->data[1] + j * frame->linesize[1], 1, frame->width / 2,
-                   outfile);
-        for (int j = 0; j < frame->height / 2; j++)
-            fwrite(frame->data[2] + j * frame->linesize[2], 1, frame->width / 2,
-                   outfile);
+//        for (int j = 0; j < frame->height; j++)
+//            fwrite(frame->data[0] + j * frame->linesize[0], 1, frame->width, outfile);
+//        for (int j = 0; j < frame->height / 2; j++)
+//            fwrite(frame->data[1] + j * frame->linesize[1], 1, frame->width / 2,
+//                   outfile);
+//        for (int j = 0; j < frame->height / 2; j++)
+//            fwrite(frame->data[2] + j * frame->linesize[2], 1, frame->width / 2,
+//                   outfile);
     }
 }
 
@@ -136,6 +143,7 @@ int main(){
         return ret;
     }
     //1.1、获取码流信息--把流信息给到 fmt_ctx --给每个媒体流（音频/视频）的AVStream结构体赋值
+    //Ctx->streams填充上正确的信息
     ret = avformat_find_stream_info(fmt_ctx, NULL);
     if (ret < 0) {
         fprintf(stderr, "No Found Video File\n");
@@ -159,7 +167,7 @@ int main(){
 
     AVCodecParameters *avCodecParameters = fmt_ctx->streams[videoindex]->codecpar;
 
-    //根据编码器id，查找对应的解码器-AVMEDIA_TYPE_VIDEO
+    //根据编码器id，查找真正对应的解码器-AVMEDIA_TYPE_VIDEO
     AVCodec *codec = avcodec_find_decoder(avCodecParameters->codec_id);
 //    enum AVCodecID video_codec_id = AV_CODEC_ID_H264;
 //    AVCodec *codec = avcodec_find_decoder(video_codec_id);
