@@ -1,7 +1,7 @@
 /**
  * 简单的打开-读取-解码-关闭流程
  */
-#include <libavutil/opt.h>
+#include "../../include/ffmpeg/win/libavutil/opt.h"
 #include "../../include/ffmpeg/win/libavformat/avformat.h"
 #include "../../include/ffmpeg/win/libavcodec/avcodec.h"
 static void print_video_format(const AVFrame *frame) {
@@ -28,9 +28,7 @@ static void decode(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame,
                 "Receive_frame and send_packet both returned EAGAIN, which is an "
                 "API violation.\n");
     } else if (ret < 0) {
-        fprintf(stderr,
-                "Error submitting the packet to the decoder, err:%s, pkt_size:%d\n",
-                ret, pkt->size);
+        fprintf(stderr,"Error submitting the packet to the decoder, err:%d, pkt_size:%d\n",ret, &pkt->size);
         return;
     }
 
@@ -77,7 +75,7 @@ static void decodeAudio(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame,
                 "API violation.\n");
     } else if (ret < 0) {
         fprintf(stderr,
-                "Error submitting the packet to the decoder, err:%s, pkt_size:%d\n",
+                "Error submitting the packet to the decoder, err:%d, pkt_size:%d\n",
                 ret, pkt->size);
         return;
     }
@@ -159,11 +157,12 @@ int main(){
         return -1;
     }
 
-    AVCodecParameters *avCodecParameters;
-    avCodecParameters = fmt_ctx->streams[videoindex]->codecpar;
+    AVCodecParameters *avCodecParameters = fmt_ctx->streams[videoindex]->codecpar;
 
     //根据编码器id，查找对应的解码器-AVMEDIA_TYPE_VIDEO
     AVCodec *codec = avcodec_find_decoder(avCodecParameters->codec_id);
+//    enum AVCodecID video_codec_id = AV_CODEC_ID_H264;
+//    AVCodec *codec = avcodec_find_decoder(video_codec_id);
     if(!codec){
         printf("Cannot find any codec for audio.");
         return -1;
@@ -196,11 +195,11 @@ int main(){
                packet->pts,
                packet->flags);
 
-        if (packet->stream_index ==AVMEDIA_TYPE_VIDEO){
+        if (packet->stream_index ==AVMEDIA_TYPE_VIDEO){//
             //视频h.256等压缩格式的-解压--发送解码数据
             printf("video\n");
             decode(codecCtx,packet,frame,outfile);
-        }else if (packet->stream_index ==AVMEDIA_TYPE_AUDIO){
+        }else if (packet->stream_index ==AVMEDIA_TYPE_AUDIO){//
             //音频aac等压缩格式的-解压
             //经过解码之后，获取到的数据是pcm等音频源码数据
             printf("audio\n");
