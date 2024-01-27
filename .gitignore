@@ -1,5 +1,6 @@
 /first/
-/cmake-build-debug/
-/CMakeFiles/
+/cmake-build-debug/**
+/CMakeFiles/**
 /source/ffplay.exe
 /source/*.yuv
+/source/*.pcm

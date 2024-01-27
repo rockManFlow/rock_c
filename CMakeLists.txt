@@ -26,8 +26,8 @@ link_directories(${LINK_DIR}/ffmpeg/win)
 
 
 
-#添加编译文件  function/ffmpeg/my_base_learn.c function/ffmpeg/video_high_base_learn.c
-add_executable(rock_c function/ffmpeg/my_base_learn.c)
+#添加编译文件  function/ffmpeg/my_base_learn.c function/ffmpeg/AudioDecode.c function/ffmpeg/my_base_learn.c
+add_executable(rock_c function/ffmpeg/YuvEncode.c)
 
 #将第三方库链接在一起
 target_link_libraries(rock_c avcodec avdevice

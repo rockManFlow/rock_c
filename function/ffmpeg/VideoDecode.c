@@ -11,6 +11,7 @@
  * -video_size大小需要特别注意下，在程序中会打印对应大小
  * ffplay -video_size 368x640 -pix_fmt yuv420p test_out_video.yuv
  *
+ * YUV+RGB 视频的解码
  * 都没问题
  * mp4-yuv
  * mkv-yuv
