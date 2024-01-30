@@ -7,8 +7,14 @@
 3、解码（把h256，aac等视音频压缩格式解压）--xxx_coding_check.c  
 4、视音频像素源数据（yuv420p,pcm，rgb等）--xxx_source_check.c   
 
-解码（视音频）+编码（视音频）+特效
+解码（视音频）+编码（视音频）+特效+播放
 
+视频-YUV-OK
+音频-pcm-ing
+YUV-JPEG-OK
+pcm-AAC-ing
+play-ing
+源文件内容编辑avfilter--ing
 
 源文件格式
 1. YUV是什么？
