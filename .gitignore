@@ -4,3 +4,5 @@
 /source/ffplay.exe
 /source/*.yuv
 /source/*.pcm
+/source/*.h264
+/source/*.mp4

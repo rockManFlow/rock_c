@@ -14,15 +14,49 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="811f8466-e984-4f76-8f44-ef0c658d5ec7" name="Changes" comment="ffmpeg learn">
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/rock_c.iml" beforeDir="false" />
+    <list default="true" id="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/function/ffmpeg/avdeo_high_base_learn.c" beforeDir="false" afterPath="$PROJECT_DIR$/function/ffmpeg/avdeo_high_base_learn.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/function/ffmpeg/video_high_base_learn.c" beforeDir="false" afterPath="$PROJECT_DIR$/function/ffmpeg/video_high_base_learn.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ffmpeg_temp.md" beforeDir="false" afterPath="$PROJECT_DIR$/ffmpeg_temp.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/function/ffmpeg/2.c" beforeDir="false" afterPath="$PROJECT_DIR$/function/ffmpeg/2.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/function/ffmpeg/YuvEncodeJPEG.c" beforeDir="false" afterPath="$PROJECT_DIR$/function/ffmpeg/YuvEncodeJPEG.c" afterDir="false" />
     </list>
-    <list id="7eebb573-f820-4bd3-85a5-cd8120cead6a" name="un_submit_changes" comment="un_submit_changes">
+    <list id="607c74f6-f8ab-4769-9dd7-4580ff217c67" name="un submit Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.24.1/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.24.1/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.24.1/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.24.1/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.24.1/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.24.1/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.24.1/CompilerIdC/CMakeCCompilerId.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.24.1/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/3.24.1/CompilerIdCXX/CMakeCXXCompilerId.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeError.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/CMakeOutput.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/Makefile.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/Makefile2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/TargetDirectories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/cmake.check_cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/rock_c.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/rock_c.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/rock_c.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/rock_c.dir/compiler_depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/rock_c.dir/compiler_depend.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/rock_c.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/rock_c.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/rock_c.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeFiles/rock_c.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/a.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/a.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/2" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/count.txt" beforeDir="false" />
@@ -36,6 +70,8 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rock_c.dir/objects.a" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/rock_c.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/rock_c.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/function/ffmpeg/source_file/shipin.yuv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/bin/rock_c.exe" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,130 +86,95 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/.idea/workspace.xml">
+      <ranges>
+        <range start1="2" end1="5" start2="2" end2="2" changelist="607c74f6-f8ab-4769-9dd7-4580ff217c67" />
+        <range start1="16" end1="20" start2="13" end2="23" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="21" end1="25" start2="24" end2="56" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="28" end1="28" start2="59" end2="61" changelist="607c74f6-f8ab-4769-9dd7-4580ff217c67" />
+        <range start1="31" end1="31" start2="64" end2="65" changelist="607c74f6-f8ab-4769-9dd7-4580ff217c67" />
+        <range start1="35" end1="36" start2="69" end2="72" changelist="607c74f6-f8ab-4769-9dd7-4580ff217c67" />
+        <range start1="38" end1="38" start2="74" end2="76" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="44" end1="45" start2="82" end2="82" changelist="607c74f6-f8ab-4769-9dd7-4580ff217c67" />
+        <range start1="52" end1="58" start2="89" end2="117" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="59" end1="59" start2="118" end2="119" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="61" end1="61" start2="121" end2="122" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="63" end1="63" start2="124" end2="132" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="65" end1="69" start2="134" end2="135" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="71" end1="73" start2="137" end2="149" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="77" end1="79" start2="153" end2="154" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="80" end1="81" start2="155" end2="156" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="85" end1="85" start2="160" end2="161" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="86" end1="86" start2="162" end2="167" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="90" end1="93" start2="171" end2="174" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="95" end1="176" start2="176" end2="178" changelist="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" />
+        <range start1="177" end1="290" start2="179" end2="179" changelist="607c74f6-f8ab-4769-9dd7-4580ff217c67" />
+        <range start1="305" end1="306" start2="194" end2="194" changelist="607c74f6-f8ab-4769-9dd7-4580ff217c67" />
+        <range start1="307" end1="325" start2="195" end2="235" changelist="607c74f6-f8ab-4769-9dd7-4580ff217c67" />
+      </ranges>
+    </file>
   </component>
-  <component name="ProjectId" id="2Zi4BIRjCFymaMMx7GZ3OnOT5pt" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectId" id="2bhzdcE5E2MfPTHmWYXBlxqzFL8" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/source" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/function/ffmpeg/each_part" />
+      <recent name="D:\myProjects\rock_c\source" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.rock_c">
-    <configuration name="rock_c" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" RUN_PATH="$PROJECT_DIR$/function/ffmpeg/my.c" EXPLICIT_BUILD_TARGET_NAME="all">
+  <component name="RunManager" selected="CMake Application.rock_c (1)">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="rock_c (1)" type="CMakeRunConfiguration" factoryName="Application" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="rock_c" TARGET_NAME="rock_c" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="rock_c" RUN_TARGET_NAME="rock_c">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="my.c" type="CppFileRunConfiguration" factoryName="CppFileRunConfiguration" temporary="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="rock_c" TARGET_NAME="my.c" CONFIG_NAME="my.c">
-      <option name="sourceFile" value="function/ffmpeg/my.c" />
+    <configuration name="rock_c" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="rock_c" RUN_TARGET_NAME="rock_c" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
-        <option name="com.jetbrains.cidr.cpp.runfile.CppFileBuildBeforeRunTaskProvider$BasicBuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="CMake Application.rock_c" />
+      <item itemvalue="CMake Application.rock_c (1)" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="CMake Application.rock_c (1)" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="811f8466-e984-4f76-8f44-ef0c658d5ec7" name="Changes" comment="" />
-      <changelist id="7eebb573-f820-4bd3-85a5-cd8120cead6a" name="un_submit_changes" comment="" />
-      <created>1698136710328</created>
+      <changelist id="c63d2e73-e4f1-4383-80f8-947fbe0d3a4d" name="Default Changelist" comment="" />
+      <changelist id="607c74f6-f8ab-4769-9dd7-4580ff217c67" name="un submit Changelist" comment="" />
+      <created>1706682189131</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1698136710328</updated>
-      <workItem from="1698136712046" duration="36647000" />
-      <workItem from="1698733137171" duration="72328000" />
-      <workItem from="1699494397876" duration="28998000" />
-      <workItem from="1699957503076" duration="689000" />
-      <workItem from="1699959605954" duration="102576000" />
-      <workItem from="1702871249963" duration="3710000" />
-      <workItem from="1703044310628" duration="227000" />
-      <workItem from="1703044650254" duration="41021000" />
-      <workItem from="1704161782064" duration="13602000" />
-      <workItem from="1704678098164" duration="1798000" />
-    </task>
-    <task id="LOCAL-00001" summary="C学习提交">
-      <created>1698231861259</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1698231861259</updated>
-    </task>
-    <task id="LOCAL-00002" summary="C学习提交">
-      <created>1698319110320</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1698319110320</updated>
-    </task>
-    <task id="LOCAL-00003" summary="C学习提交">
-      <created>1698376238394</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1698376238394</updated>
-    </task>
-    <task id="LOCAL-00004" summary="C学习提交">
-      <created>1698747159475</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1698747159475</updated>
-    </task>
-    <task id="LOCAL-00005" summary="C学习">
-      <created>1699006973827</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1699006973827</updated>
-    </task>
-    <task id="LOCAL-00006" summary="C--文件的读写">
-      <created>1699351828938</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1699351828938</updated>
-    </task>
-    <task id="LOCAL-00007" summary="C-引入libevent静态库文件">
-      <created>1699435573040</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1699435573040</updated>
-    </task>
-    <task id="LOCAL-00008" summary="C方向确定">
-      <created>1699605658030</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1699605658030</updated>
-    </task>
-    <task id="LOCAL-00009" summary="libevent学习">
-      <created>1699959640966</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1699959640966</updated>
-    </task>
-    <task id="LOCAL-00010" summary="libevent学习-验证client与server socket通信是没问题的">
-      <created>1700044677559</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1700044677559</updated>
+      <updated>1706682189131</updated>
+      <workItem from="1706682192933" duration="7305000" />
     </task>
     <task id="LOCAL-00011" summary="libevent学习-验证client与server socket通信">
       <created>1700132801154</created>
