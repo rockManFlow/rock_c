@@ -10,10 +10,11 @@
 解码（视音频）+编码（视音频）+特效+播放
 
 视频（单个图片）-YUV-OK
-音频-pcm-待验证
 图片：YUV-JPEG-OK
 视频：YUV-h.264压缩文件-ok
+音频-pcm-待验证
 pcm-AAC-ing
+h.264+AAC封装成指定视频格式-ing
 play-ing
 源文件内容编辑avfilter--ing
 
