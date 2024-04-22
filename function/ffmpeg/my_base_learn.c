@@ -4,6 +4,7 @@
 #include "../../include/ffmpeg/win/libavutil/opt.h"
 #include "../../include/ffmpeg/win/libavformat/avformat.h"
 #include "../../include/ffmpeg/win/libavcodec/avcodec.h"
+#include "../../include/ffmpeg/win/libswscale/swscale.h"
 static void print_video_format(const AVFrame *frame) {
     printf("width: %u\n", frame->width);
     printf("height: %u\n", frame->height);
@@ -47,6 +48,8 @@ static void decode(AVCodecContext *dec_ctx, AVPacket *pkt, AVFrame *frame,
             print_video_format(frame);
         }
 
+//        sws_scale(swsContext, reinterpret_cast<const uint8_t *const *>(frame->data),
+//                  frame->linesize, 0, frame->height, yuvFrame->data, yuvFrame->linesize);
         //得到所有的大小 宽度乘以高度  解释: 在R G B 中有多少像素 就是宽度乘以高度, 在YUV中 有多少像素是由Y决定的 如果只有Y 那么只有亮度 就是黑白的
         int y_size = dec_ctx->width * dec_ctx->height;
         //Y亮度信息
