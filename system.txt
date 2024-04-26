@@ -29,6 +29,23 @@ C语言编译器是GCC
 当你的程序只有一个源文件时，直接就可以用gcc命令编译它。但是当你的程序包含很多个源文件时，用gcc命令逐个去编译时，你就很容易混乱而且工作量大.
 所以出现了make工具！make工具可以看成是一个智能的批处理工具，它本身并没有编译和链接的功能，而是用类似于批处理的方式—通过调用makefile文件中用户指定的命令来进行编译和链接的。
 
+【】make的作用
+make 命令是 Unix/Linux 系统中用于自动化构建（包括编译和链接）程序的工具。
+对于大型项目，手动编译所有的源文件会非常繁琐。make 命令可以根据 Makefile 中的规则自动确定哪些文件需要编译，并只编译那些文件。
+Makefile文件具有平台相关性（不同平台对应的文件内容不一样）
+
+【】configure脚本与cmake的区别
+configure脚本和CMake都是用于准备和编译软件项目的工具。
+平台适应性：configure脚本通常与特定的系统或平台紧密相关，而CMake则是一个跨平台的工具，可以生成适应多种操作系统的编译配置文件。
+使用方式：configure脚本通常通过运行脚本来工作，而CMake则使用CMakeLists.txt文件来描述项目的编译过程。
+效率：在构建大型项目时，CMake由于其工具链的简化和高效的构建过程，通常比使用configure脚本的方法更快。
+可扩展性：CMake允许用户为其编写特定功能的模块，从而扩展其功能，而configure脚本在这方面通常没有这么灵活。
+
+configure也是会生成Makefile文件。
+
+使用configure安装编译源码的步骤：configure-make-make install
+cmake步骤：cmake-make-make install
+
 
 【】make与cmake区别：
 makefile在一些简单的工程完全可以人工手下，但是当工程非常大的时候，手写makefile也是非常麻烦的，如果换了个平台makefile又要重新修改。

@@ -37,3 +37,6 @@ target_link_libraries(rock_c avcodec avdevice
         swresample
         swscale
         )
+
+#可以添加多个执行文件的main
+#add_executable(rock_c function/base/test.c)
