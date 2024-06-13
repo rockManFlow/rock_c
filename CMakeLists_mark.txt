@@ -63,6 +63,29 @@ ADD_SUBDIRECTORY(src bin)
 2.如果不进行bin目录的指定，那么编译结果(包括中间结果)都将存放在build 和 src下
 
 
+添加子CMakeLists.txt文件
+add_subdirectory 是 CMake 命令之一，用于在当前 CMakeLists.txt 文件中引入另一个子目录的 CMake 构建。
+这样，你可以在一个项目中组织多个子项目或子模块的构建。
+示例
+project_root/
+|-- CMakeLists.txt
+|-- src/
+|   |-- main.cpp
+|-- include/
+|   |-- my_library/
+|       |-- header1.h
+|-- subproject/
+|   |-- CMakeLists.txt
+|   |-- sub_main.cpp
+
+# 在project_root/CMakeLists.txt中引入子目录
+add_subdirectory(subproject) 会让 CMake 去处理指定路径subproject下的 CMakeLists.txt 文件，以构建和配置该子目录的内容。
+
+
+
+
+
+
 #更改二进制的保存路径
 SET 指令重新定义 EXECUTABLE_OUTPUT_PATH 和 LIBRARY_OUTPUT_PATH变量来指定最终的目标二进制的位置。
 SET{EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin}
