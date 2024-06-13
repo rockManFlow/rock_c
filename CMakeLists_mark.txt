@@ -42,6 +42,14 @@ ADD_EXECUTABLE(hello main.cpp demo.cpp)
 工程名和生成的可执行文件hello是没有任何关系 ==> 工程名和可执行
 
 
+ADD_EXECUTABLE这种配置会指示CMake编译这三个源文件，并链接成一个名为myapp的可执行文件。
+如果你有很多.c文件，或者源文件列表会变得非常长，可以使用aux_source_directory命令来自动收集一个目录下的所有源文件。
+
+用法
+aux_source_directory(<dir> <variable>)
+add_executable(xxx ${variable})
+
+
 
 #内部构建和外部构建
 内部构建: 上述例子就是内部构建，他产生的临时文件特别多，不方便清理。
@@ -109,7 +117,7 @@ SET_TARGET_PROPERTIES(hello PROPERTIES VERSION 1.2 SOVERSION 1)
 
 #引入头文件
 include_directories(${INC_DIR}/ffmpeg/)
-#引入库文件
+#引入库文件(库文件（如.a或.so）)
 link_directories(${LINK_DIR}/ffmpeg/)
 
 #将第三方库链接在一起
