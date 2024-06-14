@@ -92,8 +92,6 @@ add_subdirectory(subproject) 会让 CMake 去处理指定路径subproject下的 
 
 
 
-
-
 #更改二进制的保存路径
 SET 指令重新定义 EXECUTABLE_OUTPUT_PATH 和 LIBRARY_OUTPUT_PATH变量来指定最终的目标二进制的位置。
 SET{EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin}

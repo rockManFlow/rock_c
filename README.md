@@ -471,3 +471,7 @@ Windows 有专有的宏_WIN32，Linux 有专有的宏__linux__
 三、引入头文件和静态库（打包好的二进制目标文件）
 四、引入头文件和动态链接库（下文会具体解释什么是动态链接库）
     把静态库或着动态库一起编译到可执行文件中
+
+### 如何来处理主子CMakeLists.txt文件
+CMake会首先处理主CMakeLists.txt，然后根据add_subdirectory的顺序逐个处理每个子目录中的CMakeLists.txt。
+这样，每个子目录都会变成CMake项目的一部分，并参与编译。
