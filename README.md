@@ -475,3 +475,16 @@ Windows 有专有的宏_WIN32，Linux 有专有的宏__linux__
 ### 如何来处理主子CMakeLists.txt文件
 CMake会首先处理主CMakeLists.txt，然后根据add_subdirectory的顺序逐个处理每个子目录中的CMakeLists.txt。
 这样，每个子目录都会变成CMake项目的一部分，并参与编译。
+
+### stdout、stderr
+stdout、stderr默认是输出到控制台，类型是FILE*
+如果想输出到指定文件
+// 打开文件，准备写入
+freopen("output.log", "w", stdout); // 将stdout重定向到output.log文件
+freopen("error.log", "w", stderr); // 将stderr重定向到error.log文件
+// 现在，所有的标准输出和错误输出都会写入到对应的文件中
+printf("This will go to the output file.\n");
+fprintf(stderr, "This will go to the error file.\n");
+// 关闭文件
+fclose(stdout);
+fclose(stderr);
