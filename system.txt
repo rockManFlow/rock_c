@@ -99,7 +99,7 @@ gcc main.c -lmylib -L/path/to/lib -I/path/to/include -o myprogram
 -lmylib 告诉编译器链接libmylib.a，-L 指定库文件的路径，-I 指定头文件的路径
 
 
-
+c/c++的使用始终是环境的配置和依赖的问题
 【】实现完成之后，通过java来调用实现的服务端和客户端逻辑代码
 【】ffmpeg项目学习
 
